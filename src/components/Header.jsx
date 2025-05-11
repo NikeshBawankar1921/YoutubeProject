@@ -1,22 +1,25 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { BsYoutube } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { FaMicrophone, FaRegBell } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { PiUserCircleLight, PiDotsThreeVerticalBold } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 
 function Header({ onMenuClick }) {
 
-
+const nav=useNavigate();
 
     const [SignIn, setSignIn] = useState("flex");
     const [Login, setLogin] = useState("hidden");
 
     function changeState() {
+        nav("/signup")
         if (SignIn === "flex") {
             setSignIn("hidden");
             setLogin("flex");
@@ -27,7 +30,7 @@ function Header({ onMenuClick }) {
     }
 
     return (
-        <div className='sticky top-0 bg-amber-50 text-black w-screen flex justify-between z-99'>
+        <div className='sticky top-0 bg-white text-black w-screen flex justify-between z-99'>
             <div className='flex'>
                 <GiHamburgerMenu
                     className='size-6 m-2 mt-3 cursor-pointer'
