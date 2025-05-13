@@ -1,13 +1,9 @@
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 function Login() {
-    const nav=useNavigate()
 
-    function Signup()
-    {
-        nav("/signup")
-    }
+
     return (
         <div className='justify-items-center h-screen  w-screen min-h-screen text-black bg-gray-200'>
             
@@ -20,7 +16,7 @@ function Login() {
                 <h4 className="w-fit ">Password:</h4>
                 <input className="border rounded " type="password" />
                 <button className="m-2 mt-10 text-white" >LogIn</button>
-                Don't have an Account? <div className="cursor-pointer text-blue-500" onClick={Signup} >SignUp</div>
+                Don't have an Account? <Link className="cursor-pointer text-blue-500" to={"/signup"} >SignUp</Link>
             </div>
 
         </div>

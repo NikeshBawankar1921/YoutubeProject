@@ -1,8 +1,10 @@
-import React from 'react'
+
+import Header from '../components/Header'
 
 function UserChannel() {
     return (
         <div className='w-screen h-screen bg-white text-black'>
+            <Header/>
             <img className='w-full h-50' src="https://wallpapers.com/images/hd/youtube-background-balmd1zcjzgnp7na.jpg" alt="" />
             <div className='grid grid-cols-3'>
 
