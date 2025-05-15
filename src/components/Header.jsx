@@ -30,7 +30,7 @@ const nav=useNavigate();
     }
 
     return (
-        <div className='sticky top-0 bg-white text-black w-screen flex justify-between z-99'>
+        <div className='sticky top-0 bg-white text-black w-screen flex justify-between z-99 flex-wrap-reverse'>
             <div className='flex'>
                 <GiHamburgerMenu
                     className='size-6 m-2 mt-3 cursor-pointer'
