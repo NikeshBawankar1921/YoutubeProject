@@ -10,16 +10,13 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/video" element={<VideoPage />} />
+      <Route path="/video/:id" element={<VideoPage />} />
       <Route path="/signup" element={<SignIn />} />
       <Route path="/login" element={<Login />} />
       <Route path="/createchannel" element={<CreateChannel/>} />
       <Route path="/userchannel" element={<UserChannel/>} />
-
-
-
     </Routes>
   )
 }
 
-export default App
+export default App;

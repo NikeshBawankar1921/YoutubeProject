@@ -1,53 +1,26 @@
-import express from "express";
+
+
+
+import express, { Router } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import bodyParser from "body-parser";
+import videoRouter from "./Backend/routes/videoRoutes.js";
+import UserRouter from "./Backend/routes/userRoutes.js";
 
 
-mongoose.connect("mongodb://0.0.0.0", {});
-const data =  mongoose.connection;
 const app = express();
-app.use(express.json());
+const PORT = 5000;
+
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+app.use("/videos", videoRouter );
+app.use("/", UserRouter);
+
+mongoose.connect("mongodb+srv://rathodsamji795:ZIGiJOzsTOJarEUN@cluster0.jjtwiiw.mongodb.net/test?retryWrites=true&w=majority")
+  .then(() => {
+    console.log("MongoDB connected");
+    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  })
+  .catch(err => console.error("MongoDB error:", err));
 
 
-data.on('open',()=>{
-    console.log("connected to DB");
-})
-
-data.on('error',()=>{
-    console.log("connection to DB fail");
-})
-
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String,
-});
-
-const user = mongoose.model("User", userSchema);
-
-
-
-
-app.get('/',(req,res)=>{
-    res.send("get working...")
-
-})
-
-app.post("/users", async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-    const newUser = new user({ username, email, password });
-    await newUser.save();
-    res.status(201).json({ message: "User registered successfully", user: newUser });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to register user" });
-  }
-});
-
-app.listen(5000, () => {
-  console.log(`Server is running on port ${5000}`);
-});

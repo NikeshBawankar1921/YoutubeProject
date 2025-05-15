@@ -21,11 +21,11 @@ function SideBar({ isOpen,  }) {
 
 
   return (
-    <div
-      className={`fixed left-0 w-60 h-screen  bg-white z-10 text-black transform transition-transform duration-300 ease-in-out  
+    <div 
+      className={` fixed left-0 w-60 h-screen  bg-white z-10 text-black transform transition-transform duration-300 ease-in-out  
         ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
-<div className="overflow-y-auto h-full pr-2 scroll-smooth">
+<div className="overflow-y-auto h-full pr-2 ">
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
         <IoMdHome className="size-6 mr-2" /> Home
       </label>
@@ -37,18 +37,18 @@ function SideBar({ isOpen,  }) {
       </label>
 
       <hr className="opacity-20 mt-4 mb-4" />
-      <label className="font-bold">You</label>
+      <label className="font-bold ml-2">You</label>
        
 
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
-        <PiUserCircleLight className="size-6 mr-2" /> You
+        <PiUserCircleLight className="size-6 mr-2 " /> You
       </label>
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
         <LuHistory className="size-6 mr-2" /> History
       </label>
 
       <hr className="opacity-20 mt-4 mb-4" />
-      <label className="font-bold">Explore</label>
+      <label className="font-bold ml-2">Explore</label>
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
         <BsFire className="size-6 mr-2" /> Trending
       </label>
