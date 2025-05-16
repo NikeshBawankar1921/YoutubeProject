@@ -46,7 +46,7 @@ const Home = () => {
           </div>
 
 
-          <div className='flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white  '>
+          <div className='flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full '>
             {videos
               .filter(video => selectedCategory === "all" || video.category === selectedCategory)
               .map((video, index) => (

@@ -2,8 +2,8 @@
 import Home from './pages/Home'
 import { Route, Routes } from 'react-router-dom'
 import VideoPage from './pages/VideoPage'
-import SignIn from './components/SignIn'
-import Login from './components/Login'
+import SignIn from './pages/SignIn'
+import Login from './pages/Login'
 import CreateChannel from './components/CreateChannel'
 import UserChannel from './pages/UserChannel'
 function App() {
