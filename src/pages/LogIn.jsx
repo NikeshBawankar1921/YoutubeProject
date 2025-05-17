@@ -17,15 +17,22 @@ let Nav=useNavigate();
         email,
         password,
       });
-      const data={'userEmail': email,'userPassword':password,'logedin':true}
-      console.log("Response from backend:", response.data);
-      alert("Login successful!");
-      sessionStorage.setItem('user',JSON.stringify(data))
-      Nav("/");   
-      // Redirect or store token here if needed
+       const { token, user } = response.data;
+
+      if (token) {
+        // Store token in sessionStorage
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("logedin", "true");
+
+        alert("Login successful!");
+        Nav("/");
+      } else {
+        alert("Invalid credentials. Token not received.");
+      }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Please check the console for details.");
+      alert("Login failed. Check credentials or try again.");
     }
   };
 

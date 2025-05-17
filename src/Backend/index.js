@@ -15,13 +15,14 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/videos", videoRouter);
 
+app.use("/videos", videoRouter);
 LoginRouter(app);
 UserRouter(app)
 
 
 // DB connection and server start
+// mongoose.connect('mongodb+srv://rathodsamji795:ZIGiJOzsTOJarEUN@cluster0.jjtwiiw.mongodb.net/test?retryWrites=true&w=majority')
 mongoose.connect(MONGOSEC)
   .then(() => {
     console.log("MongoDB connected");

@@ -26,13 +26,16 @@ const Home = () => {
   }, []);
 
 
-useEffect(()=>{
-const  logedin = localStorage.getItem('logedin')
-if(logedin == true)
-{
-  console.log('logedin')
-}
-  })
+useEffect(() => {
+  const handleStorageChange = () => {
+    const logedin = localStorage.getItem('logedin');
+    console.log('Login state changed to:', logedin);
+  };
+
+  window.addEventListener('storage', handleStorageChange);
+  return () => window.removeEventListener('storage', handleStorageChange);
+}, []);
+
 
   return (
     <div className='flex flex-col w-screen min-h-screen text-black'>

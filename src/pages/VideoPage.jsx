@@ -21,8 +21,22 @@ function VideoPage() {
     const [editingComment, setEditingComment] = useState(null);
     const [editText, setEditText] = useState('');
     const { id } = useParams();
+    const [currentUserId,setcurrentUserId ]= useState('');
 
-    const currentUserId = 'current-user-id';
+    useEffect(() => {
+//   const handleStorageChange = () => {
+     const user = JSON.parse(sessionStorage.getItem("user"));
+      setcurrentUserId(user?.name);
+
+    console.log('Login state changed to:', currentUserId);
+//   };
+
+//   window.addEventListener('storage', handleStorageChange);
+//   return () => window.removeEventListener('storage', handleStorageChange);
+},[]);
+
+
+    
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
