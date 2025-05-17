@@ -6,6 +6,9 @@ import SignIn from './pages/SignIn'
 import Login from './pages/Login'
 import CreateChannel from './components/CreateChannel'
 import UserChannel from './pages/UserChannel'
+import GetRedux from './pages/GetRedux'
+
+
 function App() {
   return (
     <Routes>
@@ -15,6 +18,9 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/createchannel" element={<CreateChannel/>} />
       <Route path="/userchannel" element={<UserChannel/>} />
+     
+
+
     </Routes>
   )
 }

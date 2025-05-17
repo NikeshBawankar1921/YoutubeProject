@@ -17,6 +17,7 @@
     "body-parser": "^2.2.0",
     "cars": "^1.1.6",
     "cors": "^2.8.5",
+    "dotenv": "^15.0.1",
     "express": "^5.1.0",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.2",

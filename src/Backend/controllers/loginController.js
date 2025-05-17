@@ -13,6 +13,7 @@ export async function loginUser (req, res) {
       return res.status(401).json({ error: "Incorrect password" });
     }
 
+
     res.status(200).json({ message: "Login successful", user });
   } catch (err) {
     console.error("Login error:", err);

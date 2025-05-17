@@ -25,6 +25,15 @@ const Home = () => {
     fetchVideos();
   }, []);
 
+
+useEffect(()=>{
+const  logedin = localStorage.getItem('logedin')
+if(logedin == true)
+{
+  console.log('logedin')
+}
+  })
+
   return (
     <div className='flex flex-col w-screen min-h-screen text-black'>
       <Header onMenuClick={toggleSidebar} />
@@ -34,10 +43,10 @@ const Home = () => {
         <div className={`flex-grow transition-all duration-300 ease-in-out ${isOpen ? 'ml-60' : 'ml-0'} overflow-y-auto`}>
 
           <div className='bg-amber-50 text-black w-screen flex gap-5 z-99 overflow-x-scroll scroll no-scrollbar'>
-            {['ALL', 'Tech', 'News', 'Song', 'Animation', "Show"].map(category => (
+            {['ALL','Programming', 'Tech', 'News', 'Song', 'Animation', "Show" ].map(category => (
               <div
                 key={category}
-                className={`w-fit pl-2 pr-2 rounded p-1 m-2 cursor-pointer ${selectedCategory === category ? 'bg-blue-400 text-white' : 'bg-gray-300'}`}
+                className={`w-fit pl-2 pr-2 rounded p-1 m-2 cursor-pointer ${selectedCategory === category.toLowerCase() ? 'bg-gray-900 text-white' : 'bg-gray-300'}`}
                 onClick={() => setSelectedCategory(category.toLowerCase())}
               >
                 {category}
@@ -50,9 +59,9 @@ const Home = () => {
             {videos
               .filter(video => selectedCategory === "all" || video.category === selectedCategory)
               .map((video, index) => (
-                <Link key={index} to={`/video/${video._id}`} className='bg-white w-52 h-64 rounded m-3 shadow-md'>
+                <Link key={index} to={`/video/${video._id}`} className='bg-white w-52 h-64 rounded m-3 shadow-md '>
                   <img src={video.thumbnailUrl} alt={video.title} className='w-full h-28 object-cover rounded-t' />
-                  <div className='p-2 text-sm'>
+                  <div className='p-2 text-sm text-black'>
                     <h3 className='font-bold'>{video.title}</h3>
                     <p>Uploader: {video.uploader}</p>
                     <p>Views: {video.views}</p>

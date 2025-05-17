@@ -4,23 +4,25 @@ import cors from "cors";
 import videoRouter from "./routes/videoRoutes.js";
 import { UserRouter } from "./routes/userRoutes.js";
 import LoginRouter from "./routes/loginRoutes.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const PORT = 5000;
-
+const MONGOSEC=process.env.MONGO_KEY;
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
 // Routes
 app.use("/videos", videoRouter);
-app.use("/", UserRouter);
-LoginRouter(app);
 
+LoginRouter(app);
+UserRouter(app)
 
 
 // DB connection and server start
-mongoose.connect("mongodb+srv://rathodsamji795:ZIGiJOzsTOJarEUN@cluster0.jjtwiiw.mongodb.net/test?retryWrites=true&w=majority")
+mongoose.connect(MONGOSEC)
   .then(() => {
     console.log("MongoDB connected");
     app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
