@@ -23,17 +23,9 @@ function VideoPage() {
     const { id } = useParams();
     const [currentUserId,setcurrentUserId ]= useState('');
 
-    useEffect(() => {
-//   const handleStorageChange = () => {
-     const user = JSON.parse(sessionStorage.getItem("user"));
+    useEffect(() => {  const user = JSON.parse(sessionStorage.getItem("user"));
       setcurrentUserId(user?.name);
-
-    console.log('Login state changed to:', currentUserId);
-//   };
-
-//   window.addEventListener('storage', handleStorageChange);
-//   return () => window.removeEventListener('storage', handleStorageChange);
-},[]);
+    console.log('Login state changed to:', currentUserId); },[]);
 
 
     

@@ -9,19 +9,25 @@ import { useNavigate } from 'react-router-dom';
 
 function Header({ onMenuClick }) {
   const nav = useNavigate();
-
+  // const [userMenu,setuserMenu]=useState('hidden');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userImg, setUserImg] = useState("");
+  const [hideCreate, sethideCreate] = useState('flex border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 mt-2 pr-3 justify-center pt-1 cursor-pointer');
 
   // Check login status on mount
   useEffect(() => {
     const loggedIn = sessionStorage.getItem("logedin") === "true";
     const userData = JSON.parse(sessionStorage.getItem("user"));
-
+    const hasChannel = userData.channel;
     setIsLoggedIn(loggedIn);
     if (loggedIn && userData?.profilePic) {
       setUserImg(userData.profilePic); // or fallback to a static image
     }
+    if (hasChannel) {
+      sethideCreate("hidden")
+    }
+
+
   }, []);
 
   const handleSignIn = () => {
@@ -29,70 +35,84 @@ function Header({ onMenuClick }) {
   };
 
   const handleProfileClick = () => {
-    nav("/profile"); // or any route for user dashboard
-  };
+    //     if(userMenu=="hidden")
+    //     {setuserMenu('fixed');}
+    //     else{
+    // setuserMenu('hidden');
+    nav("/userchannel")
+  }
 
-function createChannel()
-{
-    nav('/createchannel')
+
+
+
+function createChannel() {
+  nav('/createchannel')
 }
 
 
-  return (
-    <div className='sticky top-0 bg-white text-black w-screen flex justify-between z-99 flex-wrap-reverse'>
-      {/* Left: Logo and Menu */}
-      <div className='flex'>
-        <GiHamburgerMenu className='size-6 m-2 mt-3 cursor-pointer' onClick={onMenuClick} />
-        <BsYoutube className='size-6 m-2 mt-3 text-red-600' />
-        <h3 className='pt-2.5'><b>YouTube</b></h3>
-      </div>
+return (
+  <div className='sticky top-0 bg-white text-black w-screen flex justify-between z-99 flex-wrap-reverse'>
+    {/* Left: Logo and Menu */}
+    <div className='flex'>
+      <GiHamburgerMenu className='size-6 m-2 mt-3 cursor-pointer' onClick={onMenuClick} />
+      <BsYoutube className='size-6 m-2 mt-3 text-red-600' />
+      <h3 className='pt-2.5'><b>YouTube</b></h3>
+    </div>
 
-      {/* Middle: Search Bar */}
-      <div className='flex'>
-        <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8">
-          <input
-            type="Search"
-            className='rounded-l-2xl border pl-4 bg-white border-gray-300 text-black'
-            placeholder="Search"
-          />
-          <CiSearch className='size-6 m-1 mb-2 cursor-pointer' />
+    {/* Middle: Search Bar */}
+    <div className='flex'>
+      <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8">
+        <input
+          type="Search"
+          className='rounded-l-2xl border pl-4 bg-white border-gray-300 text-black'
+          placeholder="Search"
+        />
+        <CiSearch className='size-6 m-1 mb-2 cursor-pointer' />
+      </div>
+      <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer">
+        <FaMicrophone className='size-4 m-2 mt-2' />
+      </div>
+    </div>
+
+    {/* Right: Conditional based on login */}
+    {isLoggedIn ? (
+      <div className="flex items-center">
+        <div onClick={createChannel} className={hideCreate}>
+          <GoPlus className='size-6 ml-2' /> Create
         </div>
         <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer">
-          <FaMicrophone className='size-4 m-2 mt-2' />
+          <FaRegBell className='size-4 m-2 mt-2' />
+        </div>
+        <img
+          className='border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer mr-6'
+          src={userImg || "https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg"}
+          alt='User'
+          onClick={handleProfileClick}
+        />
+        {/* <div className={` absolute right-0 top-0 w-40 h-100  bg-gray-600 z-10 text-black justify-items-center transform transition-transform duration-300 ease-in-out ${userMenu=="fixed" ? "translate-y-12 ": "translate-x-150 "}`}>
+            <lable></lable>
+            <button className='h-fit w-fit text-white p-1 rounded m-4'>Logout</button>
+
+          </div> */}
+      </div>
+    ) : (
+      <div className="flex items-center">
+        <div className="flex border-gray-600 rounded-2xl font-bold w-fit m-2 h-8 cursor-pointer">
+          <PiDotsThreeVerticalBold className='size-4 m-2 mt-2' />
+        </div>
+        <div
+          className="border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 mt-2 pr-3 justify-center pt-1 cursor-pointer mr-6 hidden sm:flex"
+          onClick={handleSignIn}
+        >
+          <PiUserCircleLight className='size-6 ml-2 ' /> Sign in
         </div>
       </div>
+    )}
 
-      {/* Right: Conditional based on login */}
-      {isLoggedIn ? (
-        <div className="flex items-center">
-          <div onClick={createChannel} className="flex border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 mt-2 pr-3 justify-center pt-1 cursor-pointer">
-            <GoPlus className='size-6 ml-2' /> Create
-          </div>
-          <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer">
-            <FaRegBell className='size-4 m-2 mt-2' />
-          </div>
-          <img
-            className='border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer mr-6'
-            src={userImg || "https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg"}
-            alt='User'
-            onClick={handleProfileClick}
-          />
-        </div>
-      ) : (
-        <div className="flex items-center">
-          <div className="flex border-gray-600 rounded-2xl font-bold w-fit m-2 h-8 cursor-pointer">
-            <PiDotsThreeVerticalBold className='size-4 m-2 mt-2' />
-          </div>
-          <div
-            className="border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 mt-2 pr-3 justify-center pt-1 cursor-pointer mr-6 hidden sm:flex"
-            onClick={handleSignIn}
-          >
-            <PiUserCircleLight className='size-6 ml-2 ' /> Sign in
-          </div>
-        </div>
-      )}
-    </div>
-  );
+
+
+  </div>
+);
 }
 
 export default Header;

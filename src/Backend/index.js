@@ -5,6 +5,11 @@ import videoRouter from "./routes/videoRoutes.js";
 import { UserRouter } from "./routes/userRoutes.js";
 import LoginRouter from "./routes/loginRoutes.js";
 import dotenv from 'dotenv';
+import CreateChannelRouter from "./routes/createchannelRoutes.js";
+import User from "./models/userModel.js";
+import channelRouter from "./routes/createchannelRoutes.js";
+// import channelRouter from "./routes/createchannelRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -17,8 +22,13 @@ app.use(express.json());
 // Routes
 
 app.use("/videos", videoRouter);
+app.use("/createuserchannel", channelRouter);
+
+
+
+
 LoginRouter(app);
-UserRouter(app)
+UserRouter(app);
 
 
 // DB connection and server start

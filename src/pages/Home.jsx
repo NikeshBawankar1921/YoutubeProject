@@ -28,7 +28,7 @@ const Home = () => {
 
 useEffect(() => {
   const handleStorageChange = () => {
-    const logedin = localStorage.getItem('logedin');
+    const logedin = sessionStorage.getItem('logedin');
     console.log('Login state changed to:', logedin);
   };
 

@@ -4,9 +4,10 @@ import { Route, Routes } from 'react-router-dom'
 import VideoPage from './pages/VideoPage'
 import SignIn from './pages/SignIn'
 import Login from './pages/Login'
-import CreateChannel from './components/CreateChannel'
+
 import UserChannel from './pages/UserChannel'
 import GetRedux from './pages/GetRedux'
+import CreateChannel from './pages/CreateChannel'
 
 
 function App() {

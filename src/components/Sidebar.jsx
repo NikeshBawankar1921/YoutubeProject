@@ -29,7 +29,7 @@ function SideBar({ isOpen,  }) {
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
         <IoMdHome className="size-6 mr-2" /> Home
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/video")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
         <SiYoutubeshorts className="size-6 mr-2" /> Shorts
       </label>
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>

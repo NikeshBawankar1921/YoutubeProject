@@ -23,6 +23,7 @@ export async function loginUser(req, res) {
       id: user._id,
       email: user.email,
       name: user.username,
+      channels: user.userId,
     };
 
     // Generate token
