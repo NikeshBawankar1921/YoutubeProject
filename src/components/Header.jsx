@@ -18,7 +18,11 @@ function Header({ onMenuClick }) {
   useEffect(() => {
     const loggedIn = sessionStorage.getItem("logedin") === "true";
     const userData = JSON.parse(sessionStorage.getItem("user"));
-    const hasChannel = userData.channel;
+    let hasChannel
+    if(sessionStorage.getItem("user")){
+     hasChannel = userData.channel ;
+
+    }
     setIsLoggedIn(loggedIn);
     if (loggedIn && userData?.profilePic) {
       setUserImg(userData.profilePic); // or fallback to a static image

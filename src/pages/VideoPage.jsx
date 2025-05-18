@@ -255,13 +255,13 @@ function VideoPage() {
                         
                         {/* Add Comment Form */}
                         <form onSubmit={handleAddComment} className='mb-6'>
-                            <div className='flex items-start gap-4'>
+                            <div className={`${sessionStorage.getItem('user') ? "flex" : "hidden "} items-start gap-4`}>
                                 <img 
                                     src="https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg" 
                                     alt="User Avatar" 
                                     className='w-10 h-10 rounded-full'
                                 />
-                                <div className='flex-grow'>
+                                <div className={'flex-hidden'}>
                                     <input
                                         type="text"
                                         value={newComment}
