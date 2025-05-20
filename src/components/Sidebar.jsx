@@ -15,7 +15,7 @@ import { IoMusicalNotesOutline } from "react-icons/io5";
 import { FiRadio } from "react-icons/fi";
 
 
-function SideBar({ isOpen,  }) {
+function SideBar({ isOpen }) {
   let nav=useNavigate();
   
 

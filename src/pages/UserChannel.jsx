@@ -1,13 +1,35 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../components/Header'
 import SideBar from '../components/Sidebar'
+import axios from 'axios';
 
 function UserChannel() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => setIsOpen(!isOpen);
+
+ const [user, setUser] = useState(() => {
+  const savedUser = localStorage.getItem("user");
+  return savedUser ? JSON.parse(savedUser) : {};
+});
+
+
+
+
+
+// useEffect(()=>{
+// // let oldUser = JSON.parse(sessionStorage.getItem("user"));
+// // console.log(oldUser);
+
+// async function getData(){
+// const response = await axios.get("http://localhost:5000/user");
+// }
+// },[])
+
+
+
     return (
-        <div className='w-screen h-screen bg-white text-black'>
+        <div className='fixed top-0 w-screen h-screen bg-white text-black'>
             <Header onMenuClick={toggleSidebar} />
             <SideBar isOpen={isOpen} onClose={toggleSidebar} />
             <img className='w-full h-50' src="https://wallpapers.com/images/hd/youtube-background-balmd1zcjzgnp7na.jpg" alt="" />
@@ -16,10 +38,10 @@ function UserChannel() {
                 <div className=' flex col-span-2'>
                     <img className='rounded-full w-30 m-2' src="https://randomuser.me/api/portraits/women/2.jpg" alt="" />
                     <div className=' m-2'>
-                        <div className="font-bold text-xl">Karina Kapoor</div>
-                        <div className="">@Karina_Kapoor22</div>
+                        <div className="font-bold text-xl">{user.channel.channels}</div>
+                        <div className="">{user.channel.handle}</div>
                         <div className=" ">11.25k Subscribers | 230 videos</div>
-                        <div className='rounded-full bg-gray-900 w-fit text-white pl-3 pr-3 p-1 cursor-pointer mt-3'>Subscribe</div>
+                        <div className='hidden rounded-full bg-gray-900 w-fit text-white pl-3 pr-3 p-1 cursor-pointer mt-3'>Subscribe</div>
                     </div>
 
                 </div>

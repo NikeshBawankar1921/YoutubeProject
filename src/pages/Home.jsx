@@ -7,7 +7,7 @@ import SideBar from '../components/Sidebar';
 import axios from 'axios';
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [videos, setVideos] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -15,8 +15,11 @@ const Home = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/videos");
+       
+        const res = await axios.get('http://localhost:5000/videos');
         setVideos(res.data);
+       
+        
       } catch (error) {
         console.error("Error fetching videos:", error);
       }
@@ -28,7 +31,7 @@ const Home = () => {
 
 useEffect(() => {
   const handleStorageChange = () => {
-    const logedin = sessionStorage.getItem('logedin');
+    const logedin = localStorage.getItem('logedin');
     console.log('Login state changed to:', logedin);
   };
 
@@ -38,12 +41,12 @@ useEffect(() => {
 
 
   return (
-    <div className='flex flex-col w-screen min-h-screen text-black'>
+    <div className='flex flex-col w-screen min-h-screen text-black no-scrollbar'>
       <Header onMenuClick={toggleSidebar} />
       <div className='top-20 flex flex-grow'>
         <SideBar isOpen={isOpen} onClose={toggleSidebar} />
 
-        <div className={`flex-grow transition-all duration-300 ease-in-out ${isOpen ? 'ml-60' : 'ml-0'} overflow-y-auto`}>
+        <div className={`flex-grow transition-all duration-300 ease-in-out ${isOpen ? 'ml-60' : 'ml-0'} overflow-y-auto no-scrollbar`}>
 
           <div className='bg-amber-50 text-black w-screen flex gap-5 z-99 overflow-x-scroll scroll no-scrollbar'>
             {['ALL','Programming', 'Tech', 'News', 'Song', 'Animation', "Show" ].map(category => (
@@ -58,11 +61,11 @@ useEffect(() => {
           </div>
 
 
-          <div className='flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full '>
+          <div className='flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full w-fit ' >
             {videos
               .filter(video => selectedCategory === "all" || video.category === selectedCategory)
               .map((video, index) => (
-                <Link key={index} to={`/video/${video._id}`} className='bg-white w-52 h-64 rounded m-3 shadow-md '>
+                <Link key={index} to={`/video/${video._id}`} className='bg-gray-300 w-52 h-64 rounded m-3 shadow-md '>
                   <img src={video.thumbnailUrl} alt={video.title} className='w-full h-28 object-cover rounded-t' />
                   <div className='p-2 text-sm text-black'>
                     <h3 className='font-bold'>{video.title}</h3>

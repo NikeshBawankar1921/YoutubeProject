@@ -1,42 +1,54 @@
-import User from "../models/userModel.js";
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import user from "../models/UserDataModel.js";
 
-const SECRET_KEY = process.env.JWT_SECRET || 'Secretkey'; // Use env variable in production
+const loginController = async (req, res) => {
 
-export async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    // Find user by email
+    const user1 = await user.findOne({ email });
 
-    if (!user) {
+    if (!user1) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    if (user.password !== password) {
-      return res.status(401).json({ error: "Incorrect password" });
-    }
-   
+    // Compare hashed passwords
+    const GotPass = await bcrypt.compare(password, user1.password);
 
-    // Payload for JWT
+    if (!GotPass) {
+      return res.status(401).json({ message: "Wrong Password" });
+    }
+
+    // Create JWT payload
     const payload = {
-      id: user._id,
-      email: user.email,
-      name: user.username,
-      channels: user.userId,
+      id: user1._id,
+      email: user1.email,
+      name: user1.username,
+      channels: user1.userId,
     };
 
-    // Generate token
-    const accessToken = jwt.sign(payload, SECRET_KEY, { expiresIn: '5m' });
+    // Sign JWT token
+    const accessToken = jwt.sign(
+      {
+        id: user1._id,
+        email: user1.email,
+      },
+      "youtube", // Secret key
+      { expiresIn: '1h' }
+    );
 
-    res.status(200).json({
+    // Send response
+    return res.status(200).json({
       message: "Login successful",
       token: accessToken,
-      user: payload
+      user: payload,
     });
-
   } catch (err) {
-    console.error("Login error:", err);
-    res.status(500).json({ error: "Failed to login" });
+    console.error("Login Error:", err.message);
+    return res.status(500).json({ error: "Internal server error" });
   }
-}
+};
+
+export default loginController;

@@ -1,5 +1,5 @@
 
-import User from "../models/userModel.js"; // Assumes you have this model
+import User from "../models/UserDataModel.js"; // Assumes you have this model
 
 import express from 'express';
 const channelRouter = express.Router();

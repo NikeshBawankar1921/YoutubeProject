@@ -1,14 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import videoRouter from "./routes/videoRoutes.js";
-import { UserRouter } from "./routes/userRoutes.js";
-import LoginRouter from "./routes/loginRoutes.js";
+// import videoRouter from "./routes/WAITvideoRoutes.js";
 import dotenv from 'dotenv';
-import CreateChannelRouter from "./routes/createchannelRoutes.js";
-import User from "./models/userModel.js";
 import channelRouter from "./routes/createchannelRoutes.js";
-// import channelRouter from "./routes/createchannelRoutes.js";
+import getUserRouter from "./routes/getUserRoutes.js";
+import { registerRoutes } from "./routes/registerRoutes.js";
+import { loginRoutes } from "./routes/loginRoutes.js";
+import videoRouter from "./routes/videoRoutes.js";
+
 
 dotenv.config();
 
@@ -20,15 +20,11 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-
-app.use("/videos", videoRouter);
+app.use('/videos',videoRouter);
 app.use("/createuserchannel", channelRouter);
-
-
-
-
-LoginRouter(app);
-UserRouter(app);
+registerRoutes(app);
+loginRoutes(app);
+getUserRouter(app);
 
 
 // DB connection and server start

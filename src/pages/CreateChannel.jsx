@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom"
 
 
 function CreateChannel() {
-  let imgURL=""
+
   const [channelsName, setchannels] = useState("");
   const [handle, sethandle] = useState("");
   const nav = useNavigate();
   const [currentUserId,setcurrentUserId]=useState('');
 
-useEffect(() => {  const user = JSON.parse(sessionStorage.getItem("user"));
+useEffect(() => {  const user = JSON.parse(localStorage.getItem("user"));
       setcurrentUserId(user.id);
       console.log(user.id);
       
@@ -33,9 +33,9 @@ useEffect(() => {  const user = JSON.parse(sessionStorage.getItem("user"));
     if (user) {
       alert("Channel created successfully!");
 
-      let oldUser = JSON.parse(sessionStorage.getItem("user"));
+      let oldUser = JSON.parse(localStorage.getItem("user"));
       oldUser.channel = true;
-      sessionStorage.setItem("user", JSON.stringify(oldUser));
+     localStorage.setItem("user", JSON.stringify(oldUser));
 
       nav("/");
     } else {
@@ -61,7 +61,7 @@ return (
     <div className="flex flex-col  w-70 p-4 h-fit rounded bg-white backdrop-blur-2xl ">
       <div className="text-blue-500 font-bold justify-items-center"> Create Channel
 
-        <img className="rounded-full w-30 m-2" src={imgURL} alt="profile" />
+        <img className="rounded-full w-30 m-2"  alt="profile" />
 
       </div>
       <input type="file" id="myFile" name="filename" className="border rounded cursor-pointer text-blue-500" />
@@ -72,7 +72,7 @@ return (
 
 
       <div className="flex justify-end">
-        <div className="cursor-pointer  gap-5 ml-2 mr-2" >Cancel</div>
+        <div className="cursor-pointer  gap-5 ml-2 mr-2" onClick={()=>nav("/")} >Cancel</div>
         <div className="cursor-pointer text-blue-500 gap-5 ml-2 mr-2"  onClick={userChannelasync}>Create Channel</div>
       </div>
     </div>

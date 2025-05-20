@@ -16,10 +16,10 @@ function Header({ onMenuClick }) {
 
   // Check login status on mount
   useEffect(() => {
-    const loggedIn = sessionStorage.getItem("logedin") === "true";
-    const userData = JSON.parse(sessionStorage.getItem("user"));
+    const loggedIn = localStorage.getItem("logedin") === "true";
+    const userData = JSON.parse(localStorage.getItem("user"));
     let hasChannel
-    if(sessionStorage.getItem("user")){
+    if(localStorage.getItem("user")){
      hasChannel = userData.channel ;
 
     }
@@ -35,7 +35,7 @@ function Header({ onMenuClick }) {
   }, []);
 
   const handleSignIn = () => {
-    nav("/signup");
+    nav("/login");
   };
 
   const handleProfileClick = () => {
@@ -47,7 +47,11 @@ function Header({ onMenuClick }) {
   }
 
 
-
+function Logout()
+{
+  localStorage.clear();
+  nav("/")
+}
 
 function createChannel() {
   nav('/createchannel')
@@ -98,6 +102,12 @@ return (
             <button className='h-fit w-fit text-white p-1 rounded m-4'>Logout</button>
 
           </div> */}
+          <div
+          className="border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 pt-1 pr-3 justify-center  cursor-pointer mr-6 hidden sm:flex"
+          onClick={Logout}
+        >
+          <PiUserCircleLight className='size-6 ml-2 ' /> LogOut
+        </div>
       </div>
     ) : (
       <div className="flex items-center">
@@ -105,11 +115,12 @@ return (
           <PiDotsThreeVerticalBold className='size-4 m-2 mt-2' />
         </div>
         <div
-          className="border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 mt-2 pr-3 justify-center pt-1 cursor-pointer mr-6 hidden sm:flex"
+          className="border-gray-600 rounded-4xl bg-gray-300 w-fit h-8  pr-3 justify-center pt-1 cursor-pointer mr-6 hidden sm:flex"
           onClick={handleSignIn}
         >
           <PiUserCircleLight className='size-6 ml-2 ' /> Sign in
         </div>
+        
       </div>
     )}
 

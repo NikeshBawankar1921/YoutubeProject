@@ -23,7 +23,7 @@ function VideoPage() {
     const { id } = useParams();
     const [currentUserId,setcurrentUserId ]= useState('');
 
-    useEffect(() => {  const user = JSON.parse(sessionStorage.getItem("user"));
+    useEffect(() => {  const user = JSON.parse(localStorage.getItem("user"));
       setcurrentUserId(user?.name);
     console.log('Login state changed to:', currentUserId); },[]);
 
@@ -255,7 +255,7 @@ function VideoPage() {
                         
                         {/* Add Comment Form */}
                         <form onSubmit={handleAddComment} className='mb-6'>
-                            <div className={`${sessionStorage.getItem('user') ? "flex" : "hidden "} items-start gap-4`}>
+                            <div className={`${localStorage.getItem('user') ? "flex" : "hidden "} items-start gap-4`}>
                                 <img 
                                     src="https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg" 
                                     alt="User Avatar" 

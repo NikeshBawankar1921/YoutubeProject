@@ -2,6 +2,7 @@ import express from "express";
 import Video from "../models/videoModel.js";
 
 const videoRouter = express.Router();
+console.log("videorouter called")
 
 videoRouter.get("/", async (req, res) => {
   try {
