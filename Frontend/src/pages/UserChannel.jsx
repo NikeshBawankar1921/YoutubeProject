@@ -1,0 +1,69 @@
+
+import { useEffect, useState } from 'react';
+import Header from '../components/Header'
+import SideBar from '../components/Sidebar'
+
+
+function UserChannel() {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleSidebar = () => setIsOpen(!isOpen);
+
+ const [user, setUser] = useState({});
+
+
+
+
+
+useEffect(()=>{
+// let oldUser = JSON.parse(sessionStorage.getItem("user"));
+// console.log(oldUser);
+const savedUser = localStorage.getItem("user");
+console.log(savedUser);
+
+//  return savedUser ? setUser(JSON.parse(savedUser)) : {};
+},[])
+
+
+
+    return (
+        <div className='fixed top-0 w-screen h-screen bg-white text-black'>
+            <Header onMenuClick={toggleSidebar} />
+            <SideBar isOpen={isOpen} onClose={toggleSidebar} />
+            <img className='w-full h-50' src="https://wallpapers.com/images/hd/youtube-background-balmd1zcjzgnp7na.jpg" alt="" />
+            <div className='grid grid-cols-3'>
+
+                <div className=' flex col-span-2'>
+                    <img className='rounded-full w-30 m-2' src="https://randomuser.me/api/portraits/women/2.jpg" alt="" />
+                    <div className=' m-2'>
+                        <div className="font-bold text-xl">{"user.channel.channels"}</div>
+                        <div className="">{"user.channel.handle"}</div>
+                        <div className=" ">11.25k Subscribers | 230 videos</div>
+                        <div className='hidden rounded-full bg-gray-900 w-fit text-white pl-3 pr-3 p-1 cursor-pointer mt-3'>Subscribe</div>
+                    </div>
+
+                </div>
+                <div className=''></div> {/*un use div for grid spacing*/}
+                <div className=' w-screen mt-3'>
+                    <span className='m-3  hover:border-b-2 cursor-pointer' > home</span>
+                    <span className='m-3  hover:border-b-2 cursor-pointer'>Videos</span>
+                    <span className='m-3 hover:border-b-2 cursor-pointer'>Shorts</span>
+                    <span className='m-3 hover:border-b-2 cursor-pointer'>Live</span>
+                    <span className='m-3 hover:border-b-2 cursor-pointer'>Playlists</span>
+                    <span className='m-3 hover:border-b-2 cursor-pointer'>Community</span>
+                    <hr className='opacity-25' />
+                    <div className='flex gap-5'>
+                        <div className="rounded bg-gray-300 w-fit text-black font-bold pl-3 pr-3 p-1 cursor-pointer m-2 hover:bg-gray-900 hover:text-white">Latest</div>
+                        <div className="rounded bg-gray-300 w-fit text-black font-bold pl-3 pr-3 p-1 cursor-pointer m-2 hover:bg-gray-900 hover:text-white">Popular</div>
+                        <div className="rounded bg-gray-300 w-fit text-black font-bold pl-3 pr-3 p-1 cursor-pointer m-2 hover:bg-gray-900 hover:text-white">Oldest</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    )
+}
+
+export default UserChannel
