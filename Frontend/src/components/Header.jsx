@@ -10,28 +10,20 @@ import { useNavigate } from 'react-router-dom';
 
 function Header({ onMenuClick,onProfileClick }) {
   const nav = useNavigate();
-  // const [userMenu,setuserMenu]=useState('hidden');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userImg, setUserImg] = useState("");
-  const [hideCreate, sethideCreate] = useState('flex border-gray-600 rounded-4xl bg-gray-300 w-fit h-8  pr-3 justify-center pt-1 cursor-pointer');
-  const [LogoutState, setLogoutState] = useState("flex")
 
   // Check login status on mount
   useEffect(() => {
     const loggedIn = localStorage.getItem("logedin") === "true";
     const userData = JSON.parse(localStorage.getItem("user"));
-    let hasChannel
-    if (localStorage.getItem("user")) {
-      hasChannel = userData.channel;
-
-    }
+    
+   
     setIsLoggedIn(loggedIn);
     if (loggedIn && userData?.profilePic) {
       setUserImg(userData.profilePic); // or fallback to a static image
     }
-    if (hasChannel) {
-      sethideCreate("hidden")
-    }
+    
 
 
   }, []);
@@ -39,28 +31,6 @@ function Header({ onMenuClick,onProfileClick }) {
   const handleSignIn = () => {
     nav("/register");
   };
-
-  // const handleProfileClick = () => {
-  //   //     if(userMenu=="hidden")
-  //   //     {setuserMenu('fixed');}
-  //   //     else{
-  //   // setuserMenu('hidden');
-  //   nav("/userchannel")
-  // }
-
-
-  function Logout() {
-    setIsLoggedIn(false)
-    setLogoutState(`hidden`)
-    sethideCreate(`hidden`)
-    localStorage.clear();
-
-    nav("/")
-  }
-
-  function createChannel() {
-    nav('/createchannel')
-  }
 
 
   return (
@@ -92,13 +62,7 @@ function Header({ onMenuClick,onProfileClick }) {
         <div className="flex items-center">
 
 
-          {/* <div
-            className={` ${hideCreate} border-gray-600 rounded-4xl bg-gray-300 w-fit h-8  pr-3 justify-center pt-1 cursor-pointer mr-6 `}
-            onClick={createChannel}
-          >
-            <PiUserCircleLight className='size-6 ml-2 ' /> Create
-          </div> */}
-
+     
 
           <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer" onClick={onProfileClick}>
             <FaRegBell className='size-4 m-2 mt-2'  />
@@ -110,12 +74,7 @@ function Header({ onMenuClick,onProfileClick }) {
             onClick={onProfileClick}
           />
           
-          {/* <div
-            className={`${LogoutState} border-gray-600 rounded-4xl bg-gray-300 w-fit h-8 pt-1 pr-3 justify-center  cursor-pointer mr-6 `}
-            onClick={Logout}
-          >
-            <PiUserCircleLight className='size-6 ml-2 ' /> LogOut
-          </div> */}
+         
         </div>
       ) : (
         <div className="flex items-center">

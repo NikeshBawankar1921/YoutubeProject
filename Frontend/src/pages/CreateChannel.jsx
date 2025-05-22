@@ -10,9 +10,6 @@ const CreateChannel = () => {
   const [channelHandel, setchannelHandel] = useState('');
   const [email, setEmail] = useState("");
 
-  // const data = JSON.parse(localStorage.getItem("user"));
-  // setEmail(data.email);
-  // console.log(email)
 
 
   async function submit(e) {
@@ -24,12 +21,12 @@ const CreateChannel = () => {
   email });
       const { token, user } = userdata.data;
 
-      if (token) {
+      if (user) {
         // Store token in sessionStorage
         localStorage.setItem("token", token);
-        localStorage.clear("user");
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("logedin", true);
+        // localStorage.clear("user");
+        localStorage.setItem("user2", JSON.stringify(user));
+     
       }
       console.log(userdata);
 
@@ -51,7 +48,7 @@ const CreateChannel = () => {
   }
 
     function updatedata() {
-      setchannelHandel(`#${channelName}_${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}`)
+      setchannelHandel(`@${channelName}_${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}`)
     }
  
     updatedata();

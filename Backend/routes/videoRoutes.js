@@ -102,6 +102,7 @@ videoRouter.put("/:videoId/comments/:commentId", async (req, res) => {
     comment.editTimestamp = new Date();
     
     await video.save();
+    
     res.status(200).json(comment);
   } catch (error) {
     res.status(500).json({ error: error.message });

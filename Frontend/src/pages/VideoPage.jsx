@@ -21,6 +21,7 @@ function VideoPage() {
     const [editText, setEditText] = useState('');
     const { id } = useParams();
     const [currentUserId, setcurrentUserId] = useState('');
+
     
     // const [isOpenProfile, setIsOpenProfile] = useState(false);
     // const toggleProfile = () => setIsOpenProfile(!isOpenProfile);
@@ -191,13 +192,27 @@ function VideoPage() {
     const isVideoLiked = video.likedBy?.includes(currentUserId);
     const isVideoDisliked = video.dislikedBy?.includes(currentUserId);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div className='flex flex-col text-black w-screen h-full bg-white'>
-            <Header onMenuClick={toggleSidebar}  /> 
+            <Header onMenuClick={toggleSidebar} /> 
 
             <div className='flex flex-col sm:grid sm:grid-cols-3'>
                 <SideBar isOpen={isOpen} />
-                {/* <Profile isOpenProfile={isOpenProfile} /> */}
+              
                 <div className='col-span-2 grid w-full h-screen mb-4 overflow-y-auto no-scrollbar'>
                     <div className='h-100 bg-red-20 m-2'>
                         <iframe
@@ -380,6 +395,8 @@ function VideoPage() {
                     </div>
                 </div>
 
+
+                    {/* //suggested videos */}
                 <div className='h-screen w-full overflow-y-auto mt-48 sm:m-3'>
                     <h3 className='font-bold mb-4'>Suggested Videos</h3>
                     {suggestedVideos.map((suggestedVideo) => (

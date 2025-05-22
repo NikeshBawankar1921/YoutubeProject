@@ -2,7 +2,7 @@ import { SiYoutubegaming, SiYoutubestudio, SiYoutubemusic, SiPrivateinternetacce
 import { PiSignOutBold, PiCurrencyDollarFill } from "react-icons/pi";
 import { IoIosHelpCircle } from "react-icons/io";
 import { MdSwitchAccount, MdFeedback } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BsFire } from "react-icons/bs";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { FiRadio } from "react-icons/fi";
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 function Profile({ isOpenProfile }) {
     let nav = useNavigate();
 const [hasChannel,setHasChannel]=useState(false)
-
+const [channeldata,setchanneldata]=useState(JSON.parse(localStorage.getItem("user")))
 function channel()
 {
     if(hasChannel==true)
@@ -25,19 +25,27 @@ function channel()
     }
 }
 
-useEffect(()=>{
-const LoggedIn = localStorage.getItem("Logedin")==="true";
+useEffect( ()=>{
+   
+async function updatedata(){
+const LoggedIn = JSON.parse(localStorage.getItem("logedin"));
+console.log(LoggedIn);
+
 if(LoggedIn)
-{
-    const userdata=JSON.parse(localStorage.getItesm("user"))
-    let hasChannel=userdata.channel
-    console.log(hasChannel)
-    if(hasChannel != null){ setHasChannel(true) }
+{   
+    // const channeldata=await JSON.parse(localStorage.getItem("user"))
+    
+    console.log((channeldata.channel).length);
+    
+    if((channeldata.channel).length > 0){
+         console.log("workings")
+         setHasChannel(true) 
+        }
      
 }
-
-
-})
+    }
+updatedata();
+},[isOpenProfile])
 
 
 
@@ -52,16 +60,16 @@ function Logout() {
 
     return (
         <div
-            className={` fixed right-0 rounded-2xl w-60 h-screen  bg-gray-900 z-50 text-white transform transition-transform duration-300 ease-in-out  
+            className={` fixed right-0 rounded-2xl w-65 h-screen  bg-gray-900 z-50 text-white  transform transition-transform duration-300 ease-in-out  
         ${isOpenProfile ? "translate-x-0" : "translate-x-full"}`}
         >
             <div className="overflow-y-auto h-full pr-2 ">
-
+<br/>
                 <div className="grid no-scrollbar grid-cols-3  justify-items-start">
                     <div className="row-span-2 rounded-full bg-sky-300 w-10 h-10 m-2">as</div>
-                    <div className="col-span-2 rounded-full ">useranmedsfdf</div>
-                    <div className="col-span-2 rounded-full ">userHandelsdfdsfdf</div>
-                    <div className="col-span-3 p-1 text-sky-500  m-1" ><div onClick={channel}>{hasChannel?"View your channel":"create channel"}</div></div>
+                    <div className="col-span-2 rounded-full ">{channeldata.name}</div>
+                    <div className="col-span-2 rounded-full ">{channeldata.email}</div>
+                    <div className="col-span-3 p-1 text-sky-500 cursor-pointer m-1" ><div onClick={channel}>{ hasChannel ? "View your channel":"create channel"}</div></div>
                 </div>
 
 
@@ -124,8 +132,10 @@ function Logout() {
                     <MdFeedback className="size-6 mr-2" /> Send feedback
                 </label>
 
-                <hr className="opacity-20 mt-4 mb-4" />
-                
+                <br className="opacity-20 mt-4 mb-4" />
+                <hr className="opacity-20 mt-4 mb-20" />
+                <br/>
+                 <br/>
             </div>
         </div>
     );
