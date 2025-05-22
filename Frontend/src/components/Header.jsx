@@ -8,7 +8,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
 
 
-function Header({ onMenuClick , onProfileClick }) {
+function Header({ onMenuClick , onProfileClick, searchQuery, setSearchQuery ,searchFilter }) {
   const nav = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userImg, setUserImg] = useState("");
@@ -49,8 +49,10 @@ function Header({ onMenuClick , onProfileClick }) {
             type="Search"
             className='rounded-l-2xl border pl-4 bg-white border-gray-300 text-black'
             placeholder="Search"
+            value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <CiSearch className='size-6 m-1 mb-2 cursor-pointer' />
+          <CiSearch className='size-6 m-1 mb-2 cursor-pointer' onClick={searchFilter} />
         </div>
         <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer">
           <FaMicrophone className='size-4 m-2 mt-2' />

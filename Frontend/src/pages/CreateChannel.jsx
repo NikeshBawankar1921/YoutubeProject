@@ -19,16 +19,13 @@ const CreateChannel = () => {
       const userdata = await axios.post("http://localhost:5000/createuserchannel", {   channelname: channelName,
   handle: channelHandel,
   email });
-      const { token, user } = userdata.data;
-
+      const { user } = userdata.data;
+      console.log( user.channel.length)
       if (user) {
         // Store token in sessionStorage
-        localStorage.setItem("token", token);
-        // localStorage.clear("user");
-        localStorage.setItem("user2", JSON.stringify(user));
-     
+        localStorage.removeItem("user")
+        localStorage.setItem("user", JSON.stringify(user));
       }
-      console.log(userdata);
 
       nav('/')
 

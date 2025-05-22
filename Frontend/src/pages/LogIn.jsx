@@ -25,7 +25,7 @@ e.preventDefault();
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("logedin", true);
     }
-    console.log(userdata);
+    // console.log('user:',user.channel[0] != null);
   
      nav('/')
     

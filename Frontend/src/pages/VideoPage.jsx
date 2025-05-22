@@ -145,35 +145,7 @@ function VideoPage() {
         }
     };
 
-    const handleCommentLike = async (commentId) => {
-        try {
-            const response = await axios.post(`http://localhost:5000/videos/${id}/comments/${commentId}/like`, {
-                userId: currentUserId
-            });
-            setComments(comments.map(comment =>
-                comment._id === commentId
-                    ? { ...comment, likes: response.data.likes, dislikes: response.data.dislikes }
-                    : comment
-            ));
-        } catch (error) {
-            console.error("Error liking comment:", error);
-        }
-    };
 
-    const handleCommentDislike = async (commentId) => {
-        try {
-            const response = await axios.post(`http://localhost:5000/videos/${id}/comments/${commentId}/dislike`, {
-                userId: currentUserId
-            });
-            setComments(comments.map(comment =>
-                comment._id === commentId
-                    ? { ...comment, likes: response.data.likes, dislikes: response.data.dislikes }
-                    : comment
-            ));
-        } catch (error) {
-            console.error("Error disliking comment:", error);
-        }
-    };
 
     const startEditing = (comment) => {
         setEditingComment(comment._id);
@@ -218,9 +190,10 @@ function VideoPage() {
                 <SideBar isOpen={isOpen} />
               <Profile  isOpenProfile={isOpenProfile}/>
                 <div className='col-span-2 grid w-full h-screen mb-4 overflow-y-auto no-scrollbar'>
-                    <div className='h-100 bg-red-20 m-2'>
+                    {/*video playing frame*/}
+                    <div className='h-120 bg-red-20 m-2'>
                         <iframe
-                            className='w-full h-80 rounded-2xl'
+                            className='w-full h-100 rounded-2xl'
                             src={video.videoUrl}
                             title={video.title}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -228,7 +201,7 @@ function VideoPage() {
                         />
                         <div className='font-bold mt-2'>{video.title}</div>
                     </div>
-
+<hr></hr>
                     <div className='flex flex-wrap   ' >
                         <img
                             className='flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-13 cursor-pointer mr-6'
@@ -243,7 +216,7 @@ function VideoPage() {
                             Subscribe
                         </div>
                         <div className='flex justify-evenly w-fit '>
-                            <div className=' flex w-fit rounded-full bg-black text-white m-2 pl-3 pr-3 justify-center pt-1 ml-3 mt-4 cursor-pointer justify-items-center h-8'>
+                            <div className=' flex w-fit  rounded-full bg-black text-white m-2 pl-3 pr-3 justify-center pt-1 ml-3 mt-4 cursor-pointer justify-items-center h-8'>
                                 <div
                                     onClick={handleVideoLike}
                                     className={`cursor-pointer mb-1 flex items-center gap-1 ${isVideoLiked ? 'text-blue-600' : ''}`} >
@@ -271,6 +244,9 @@ function VideoPage() {
                                 . . .
                             </div>
                         </div>
+
+                        <div> <h4 className='  w-full'>Views : {video.views}</h4>
+                            <h4 className='  w-full'>discription : {video.description}</h4></div>
                     </div>
 
                     <div className='h-auto border mt-4 p-4'>
@@ -280,7 +256,7 @@ function VideoPage() {
                         <form onSubmit={handleAddComment} className='mb-6'>
                             <div className={`${localStorage.getItem('user') ? "flex" : "hidden "} items-start gap-4`}>
                                 <img
-                                    src="https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg"
+                                    src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
                                     alt="User Avatar"
                                     className='w-10 h-10 rounded-full'
                                 />

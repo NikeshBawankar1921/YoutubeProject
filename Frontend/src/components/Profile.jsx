@@ -8,16 +8,20 @@ import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { FiRadio } from "react-icons/fi";
 import { FaGlobe, FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { BiUser } from "react-icons/bi";
 
 
-function Profile({ isOpenProfile }) {
+function Profile({ isOpenProfile , haschannelResult}) {
     let nav = useNavigate();
-const [hasChannel,setHasChannel]=useState(false)
+
 const [channeldata,setchanneldata]=useState(JSON.parse(localStorage.getItem("user")))
+
+
 function channel()
 {
-    if(hasChannel==true)
+    if(haschannelResult==true)
     {
+        
      nav("/userchannel")
     }
     else{
@@ -25,27 +29,21 @@ function channel()
     }
 }
 
-useEffect( ()=>{
-   
-async function updatedata(){
-const LoggedIn = JSON.parse(localStorage.getItem("logedin"));
-console.log(LoggedIn);
-
-if(LoggedIn)
-{   
-    // const channeldata=await JSON.parse(localStorage.getItem("user"))
-    
-    console.log((channeldata.channel).length);
-    
-    if((channeldata.channel).length > 0){
-         console.log("workings")
-         setHasChannel(true) 
-        }
-     
-}
+useEffect(() => {
+  const handleStorageChange = (event) => {
+    if (event.key === 'logedin') {
+      const updatedValue = JSON.parse(event.newValue);
+      console.log('Login state changed:', updatedValue);
     }
-updatedata();
-},[isOpenProfile])
+  };
+
+  window.addEventListener('storage', handleStorageChange);
+
+  // Cleanup the event listener on component unmount
+  return () => {
+    window.removeEventListener('storage', handleStorageChange);
+  };
+}, []);
 
 
 
@@ -66,10 +64,10 @@ function Logout() {
             <div className="overflow-y-auto h-full pr-2 ">
 <br/>
                 <div className="grid no-scrollbar grid-cols-3  justify-items-start">
-                    <div className="row-span-2 rounded-full bg-sky-300 w-10 h-10 m-2">as</div>
+                    <div className="row-span-2 rounded-full bg-sky-300 w-10 h-10 m-2"><BiUser className="m-2 size-6" /></div>
                     <div className="col-span-2 rounded-full ">{channeldata.name}</div>
                     <div className="col-span-2 rounded-full ">{channeldata.email}</div>
-                    <div className="col-span-3 p-1 text-sky-500 cursor-pointer m-1" ><div onClick={channel}>{ hasChannel ? "View your channel":"create channel"}</div></div>
+                    <div className="col-span-3 p-1 text-sky-500 cursor-pointer m-1" ><div onClick={channel}>{ haschannelResult ? "View your channel" : "create channel"}</div></div>
                 </div>
 
 

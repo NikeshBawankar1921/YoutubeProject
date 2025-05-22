@@ -13,7 +13,14 @@ channelRoutes.post("/", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const newChannel = { channelname:channelname, handle:handle };
+    const newChannel = { 
+      id: userdata._id,
+      email: userdata.email,
+      name: userdata.username,
+      channel: 
+      {channelname:channelname, 
+      handle:handle }}
+      
 
 
     // Check if channel array is empty or doesn't already have this channel
@@ -25,8 +32,10 @@ channelRoutes.post("/", async (req, res) => {
       userdata.channel.push(newChannel);
       await userdata.save();
     }
+  return res.status(200).json({
 
-    res.status(200).json({ userdata });
+      user: newChannel,
+    });
   } catch (error) {
     console.error("Error creating channel:", error);
     res.status(500).json({ error: error.message });
