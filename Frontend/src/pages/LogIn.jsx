@@ -56,7 +56,7 @@ return (
 </div>
 <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" onClick={submit}>Login</button>
 {/* </form> */}
-<label className="justify-center">Don't have an Account? <Link to="/register" className="">Register now!</Link></label>
+<label className="justify-center">Don't have an Account? <Link to="/register" className="text-sky-500 font-bold">Register now!</Link></label>
 </div>
  </div> 
 )

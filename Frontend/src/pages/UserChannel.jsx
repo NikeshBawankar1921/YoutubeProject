@@ -3,14 +3,17 @@ import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Profile from '../components/Profile';
 
 function UserChannel() {
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const toggleProfile = () =>setIsOpenProfile(!isOpenProfile)
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
- 
+   console.log(user.channel[0].handle)
   const [videos, setVideos] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState(user.channel[0].handle);
 
 
   // Function to update user state from localStorage
@@ -23,6 +26,7 @@ function UserChannel() {
 
   useEffect(() => {
     // 1. Listen to 'storage' events (cross-tab)
+  
     const handleStorageChange = () => {
       updateUserFromStorage();
     };
@@ -45,8 +49,9 @@ function UserChannel() {
 
   return (
     <div className='fixed top-0 w-screen h-screen bg-white text-black overflow-y-auto'>
-      <Header onMenuClick={toggleSidebar} />
-      <SideBar isOpen={isOpen} onClose={toggleSidebar} />
+      <Header onMenuClick={toggleSidebar} onProfileClick={toggleProfile}/>
+      <SideBar isOpen={isOpen} />
+      <Profile isOpenProfile={isOpenProfile}/>
       <img
         className='w-full h-50'
         src="https://wallpapers.com/images/hd/youtube-background-balmd1zcjzgnp7na.jpg"
@@ -72,7 +77,7 @@ function UserChannel() {
               <div> loading...</div></>)}
 
 
-            <div>11.25k Subscribers | 230 videos</div>
+            <div>11.25k Subscribers </div>
             <div className='hidden rounded-full bg-gray-900 w-fit text-white pl-3 pr-3 p-1 cursor-pointer mt-3'>Subscribe</div>
           </div>
         </div>
@@ -91,7 +96,7 @@ function UserChannel() {
             <div className="rounded bg-gray-300 w-fit text-black font-bold pl-3 pr-3 p-1 cursor-pointer m-2 hover:bg-gray-900 hover:text-white">Oldest</div>
           </div>
 
-          <div className='bg-amber-50 text-black w-screen flex gap-5 z-99 overflow-x-scroll  no-scrollbar'>
+          {/* <div className='bg-amber-50 text-black w-screen flex gap-5 z-99 overflow-x-scroll  no-scrollbar'>
             {['ALL', 'Programming', 'Tech', 'News', 'Song', 'Animation', "Show"].map(category => (
               <div
                 key={category}
@@ -101,10 +106,10 @@ function UserChannel() {
                 {category}
               </div>
             ))}
-          </div>
+          </div> */}
           <div className='flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full w-scree '>
             {videos
-              .filter(video => selectedCategory === "all" || video.category === selectedCategory)
+              .filter(video =>  video.channelId === selectedCategory )
               .map((video, index) => (
                 <Link key={index} to={`/video/${video._id}`} className='bg-gray-300 w-52 h-64 rounded m-3 shadow-md '>
                   <img src={video.thumbnailUrl} alt={video.title} className='w-full h-28 object-cover rounded-t' />

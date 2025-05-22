@@ -9,8 +9,12 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import Profile from '../components/Profile';
 
 function VideoPage() {
+
+      const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const toggleProfile = () =>setIsOpenProfile(!isOpenProfile)
     const [isOpen, setIsOpen] = useState(false);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -208,11 +212,11 @@ function VideoPage() {
 
     return (
         <div className='flex flex-col text-black w-screen h-full bg-white'>
-            <Header onMenuClick={toggleSidebar} /> 
+            <Header onMenuClick={toggleSidebar}  onProfileClick={toggleProfile}/> 
 
             <div className='flex flex-col sm:grid sm:grid-cols-3'>
                 <SideBar isOpen={isOpen} />
-              
+              <Profile  isOpenProfile={isOpenProfile}/>
                 <div className='col-span-2 grid w-full h-screen mb-4 overflow-y-auto no-scrollbar'>
                     <div className='h-100 bg-red-20 m-2'>
                         <iframe

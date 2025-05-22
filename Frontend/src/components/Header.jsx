@@ -8,7 +8,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
 
 
-function Header({ onMenuClick,onProfileClick }) {
+function Header({ onMenuClick , onProfileClick }) {
   const nav = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userImg, setUserImg] = useState("");
@@ -64,7 +64,7 @@ function Header({ onMenuClick,onProfileClick }) {
 
      
 
-          <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer" onClick={onProfileClick}>
+          <div className="flex border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer" >
             <FaRegBell className='size-4 m-2 mt-2'  />
           </div>
           <img

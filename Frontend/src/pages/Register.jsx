@@ -60,7 +60,7 @@ return (
 </div>
 <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600" onClick={sendData}  >Register</button>
 
-<label className="justify-center">Already have an Account? <Link to="/login" >Login</Link></label>
+<label className="justify-center">Already have an Account? <Link to="/login" className="text-sky-500 font-bold">Login</Link></label>
 </div>
  </div> 
   );
