@@ -67,10 +67,10 @@ function Profile() {
         </div>
 
         <hr className="opacity-20 mt-4 mb-4" />
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <FaGoogle className="size-6 mr-2" /> Google Account
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <MdSwitchAccount className="size-6 mr-2" /> Switch account
         </label>
         <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={Logout}>
@@ -79,45 +79,45 @@ function Profile() {
 
         <hr className="opacity-20 mt-4 mb-4" />
 
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <SiYoutubemusic className="size-6 mr-2 " /> YouTube Studio
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <PiCurrencyDollarFill className="size-6 mr-2" /> Purchases
         </label>
 
         <hr className="opacity-20 mt-4 mb-4" />
 
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <BsFire className="size-6 mr-2" /> Your data in YouTube
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <WiMoonWaxingCrescent4 className="size-6 mr-2" /> Appearance: Device theme
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <FaGlobe className="size-6 mr-2" /> Language: British English
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <SiPrivateinternetaccess className="size-6 mr-2" /> Restricted Mode: Off
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <FiRadio className="size-6 mr-2" /> Location: India
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <SiYoutubegaming className="size-6 mr-2" /> Keyboard shortcuts
         </label>
 
         <hr className="opacity-20 mt-4 mb-4" />
 
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <SiYoutubestudio className="size-6 mr-2" /> Setting
         </label>
         <hr className="opacity-20 mt-4 mb-4" />
 
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <IoIosHelpCircle className="size-6 mr-2" /> Help
         </label>
-        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("/") }}>
+        <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-800 p-1" onClick={() => { nav("#") }}>
           <MdFeedback className="size-6 mr-2" /> Send feedback
         </label>
 

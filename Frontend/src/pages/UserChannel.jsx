@@ -8,13 +8,26 @@ import { useIsOpen } from '../utils/Contex';
 
 function UserChannel() {
 
- const { haschannel} = useIsOpen();
- const [videos, setVideos] = useState([]);
+
+    const { haschannel } = useIsOpen();
+  
+console.log("sachannel data:",haschannel.channel.handle)
+
+  const [videos, setVideos] = useState([]);
 
 
+  
+
+
+
+
+ 
 
   useEffect(() => {
+   
     const fetchVideos = async () => {
+
+       
       try {
         const res = await axios.get('http://localhost:5000/videos');
         setVideos(res.data);
@@ -24,7 +37,7 @@ function UserChannel() {
     };
 
     fetchVideos();
-  }, []);
+  },[]);
 
 
 
@@ -48,14 +61,14 @@ function UserChannel() {
             alt="profile"
           />
           <div className="m-2">
-            {haschannel?.channel?.length > 0 ? (
+            {haschannel.channel ? (
               <>
-                <div className="font-bold text-xl">{haschannel.channel[0].channelname}</div>
-                <div>{haschannel.channel[0].handle}</div>
+                <div className="font-bold text-xl">{haschannel.channel.channelname}</div>
+                <div>{haschannel.channel.handle}</div>
               </>
             ) : (
               <>
-                <div className="font-bold text-xl">No channel found</div>
+                <div className="font-bold text-xl">loading...</div>
                 <div>---</div>
               </>
             )}
@@ -90,10 +103,10 @@ function UserChannel() {
           </div>
 
           <div className="flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full w-screen">
-            {haschannel.channel[0].handle &&
-            videos.filter((video) => video.channelId === haschannel.channel[0].handle).length > 0 ? (
+            {haschannel?.channel?.handle &&
+            videos.filter((video) => video.channelId === haschannel?.channel?.handle).length > 0 ? (
               videos
-                .filter((video) => video.channelId === haschannel.channel[0].handle)
+                .filter((video) => video.channelId === haschannel?.channel?.handle)
                 .map((video, index) => (
                   <Link
                     key={index}

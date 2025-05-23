@@ -16,11 +16,12 @@ export const SidebarProvider = ({ children }) => {
 const hasChannelFun = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   setHasChannel(user); 
-
+  console.log(user)
 if (user?.channel !='') {
     setHaschannelResult(true);
   } else {
 setHaschannelResult(false);
+
   }
  
 };
@@ -37,8 +38,9 @@ setHaschannelResult(false);
     setIsProfileSidebarOpen(prev => !prev);
    
   };
-const closeSidebars=()=>{setIsSidebarOpen(false)
-  setIsProfileSidebarOpen(false)
+const closeSidebars=()=>{
+  setIsSidebarOpen(false);
+  setIsProfileSidebarOpen(false);
 }
 
   return (

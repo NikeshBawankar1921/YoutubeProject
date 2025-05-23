@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useIsOpen } from "../utils/Contex";
 
 const CreateChannel = () => {
 
-
+const {  hasChannelFun} = useIsOpen();
   const nav = useNavigate()
   const [channelName, setChannelName] = useState('');
   const [channelHandel, setchannelHandel] = useState('');
@@ -14,20 +15,24 @@ const CreateChannel = () => {
 
   async function submit(e) {
 
-    if(!channelName)
-    { return alert("field cannot be Empty !")}
+
+
+    if (!channelName) { return alert("field cannot be Empty !") }
     e.preventDefault();
 
     try {
-      const userdata = await axios.post("http://localhost:5000/createuserchannel", {   channelname: channelName,
-  handle: channelHandel,
-  email });
+      const userdata = await axios.post("http://localhost:5000/createuserchannel", {
+        channelname: channelName,
+        handle: channelHandel,
+        email
+      });
       const { user } = userdata.data;
-      console.log( user.channel.length)
+      console.log(user.channel.length)
       if (user) {
         // Store token in sessionStorage
         localStorage.removeItem("user")
         localStorage.setItem("user", JSON.stringify(user));
+        hasChannelFun();
       }
 
       nav('/')
@@ -42,15 +47,15 @@ const CreateChannel = () => {
   }
 
   useEffect(() => {
-       const data = JSON.parse(localStorage.getItem("user"));
-  if (data?.email) {
-    setEmail(data.email);
-  }
+    const data = JSON.parse(localStorage.getItem("user"));
+    if (data?.email) {
+      setEmail(data.email);
+    }
 
     function updatedata() {
       setchannelHandel(`@${channelName}_${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}${Math.floor(Math.random(1) * 10)}`)
     }
- 
+
     updatedata();
   }, [channelName])
 

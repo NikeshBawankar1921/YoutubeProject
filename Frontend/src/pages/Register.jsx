@@ -25,8 +25,8 @@ if(username =="" || email==""|| password=="" || confPass=="")return alert("Input
 if(password!=confPass) return alert("password did not match") 
     try{
 
-    const userdata= await axios.post('http://localhost:5000/registeruser',{username:username,email:email,password:password,userId:userId,avatar:avatar,channel})
-    console.log(userdata);
+    await axios.post('http://localhost:5000/registeruser',{username:username,email:email,password:password,userId:userId,avatar:avatar,channel})
+ 
     nav('/login')
     }
     catch(err)

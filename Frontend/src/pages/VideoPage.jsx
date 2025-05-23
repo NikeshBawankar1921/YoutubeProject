@@ -28,11 +28,7 @@ function VideoPage() {
 
 
     useEffect(() => {
-
-        setcurrentUserId(haschannel?.name);
-        
-        console.log('Login state changed to:', currentUserId);
-    
+      setcurrentUserId(haschannel?.name);  
     },[]);
 
 
@@ -75,7 +71,7 @@ function VideoPage() {
         fetchVideo();
         fetchSuggestedVideos();
         fetchComments();
-    }, [id]);
+    }, [id,editingComment]);
 
     const handleAddComment = async (e) => {
         e.preventDefault();
@@ -105,6 +101,7 @@ function VideoPage() {
             ));
             setEditingComment(null);
             setEditText('');
+
         } catch (error) {
             console.error("Error editing comment:", error);
         }

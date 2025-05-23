@@ -16,7 +16,7 @@ import { useIsOpen } from "../utils/Contex";
 function SideBar() {
   let nav=useNavigate();
   
-  const { isSidebarOpen} = useIsOpen(); // use context
+  const { isSidebarOpen , closeSidebars} = useIsOpen(); // use context
 
   return (
     <div 
@@ -24,13 +24,13 @@ function SideBar() {
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
 <div className="overflow-y-auto h-full pr-2 ">
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{ closeSidebars(); nav("/")}}>
         <IoMdHome className="size-6 mr-2" /> Home
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <SiYoutubeshorts className="size-6 mr-2" /> Shorts
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <MdOutlineSubscriptions className="size-6 mr-2" /> Subscriptions
       </label>
 
@@ -38,46 +38,46 @@ function SideBar() {
       <label className="font-bold ml-2">You</label>
        
 
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <PiUserCircleLight className="size-6 mr-2 " /> You
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <LuHistory className="size-6 mr-2" /> History
       </label>
 
       <hr className="opacity-20 mt-4 mb-4" />
       <label className="font-bold ml-2">Explore</label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <BsFire className="size-6 mr-2" /> Trending
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <RiShoppingBag4Line  className="size-6 mr-2" /> Shopping
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <IoMusicalNotesOutline className="size-6 mr-2" /> Music
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <PiFilmSlate className="size-6 mr-2" /> Films
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <FiRadio className="size-6 mr-2" /> Live
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <SiYoutubegaming className="size-6 mr-2" /> Gaming
       </label>
-       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <MdOutlineNewspaper className="size-6 mr-2" /> News
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <BsTrophy  className="size-6 mr-2" /> Sport
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <RiGraduationCapLine className="size-6 mr-2" /> Courses
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("#")}}>
         <TbHanger2 className="size-6 mr-2" /> Fashion & beauty
       </label>
-      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1 " onClick={()=>{nav("/")}}>
+      <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1 " onClick={()=>{nav("#")}}>
         <LuRadioTower className="size-6 mr-2" /> Podcasts
       </label>
         <hr className="opacity-20 mt-4 mb-4" />
