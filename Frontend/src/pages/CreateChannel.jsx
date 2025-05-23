@@ -13,6 +13,9 @@ const CreateChannel = () => {
 
 
   async function submit(e) {
+
+    if(!channelName)
+    { return alert("field cannot be Empty !")}
     e.preventDefault();
 
     try {

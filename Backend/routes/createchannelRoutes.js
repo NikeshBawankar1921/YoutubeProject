@@ -14,12 +14,9 @@ channelRoutes.post("/", async (req, res) => {
     }
 
     const newChannel = { 
-      id: userdata._id,
-      email: userdata.email,
-      name: userdata.username,
-      channel: 
-      {channelname:channelname, 
-      handle:handle }}
+     
+      channelname:channelname, 
+      handle:handle }
       
 
 
@@ -34,7 +31,12 @@ channelRoutes.post("/", async (req, res) => {
     }
   return res.status(200).json({
 
-      user: newChannel,
+      user: {id: userdata._id,
+      email: email,
+      name: userdata.username,
+      channel: 
+      {channelname:channelname, 
+      handle:handle }},
     });
   } catch (error) {
     console.error("Error creating channel:", error);

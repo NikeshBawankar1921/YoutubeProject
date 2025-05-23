@@ -81,7 +81,7 @@ setHasChannel(JSON.parse(localStorage.getItem('user')))
 
 
   return (
-    <div className='flex flex-col w-screen min-h-screen text-black no-scrollbar'>
+    <div className='flex flex-col w-screen min-h-screen text-black no-scrollbar '>
       <Header onMenuClick={toggleSidebar} onProfileClick={toggleProfile} searchQuery={searchQuery} setSearchQuery={setSearchQuery} searchFilter={searchFilter} />
 
       <div className='top-20 flex flex-grow'>
@@ -89,7 +89,7 @@ setHasChannel(JSON.parse(localStorage.getItem('user')))
         <Profile isOpenProfile={isOpenProfile} haschannelResult={haschannelResult} />
         <div className={`flex-grow transition-all duration-300 ease-in-out ${isOpen ? 'ml-60' : 'ml-0'} overflow-y-auto no-scrollbar`}>
 
-          <div className='bg-amber-50 text-black w-screen flex gap-5 z-99 overflow-x-scroll  no-scrollbar'>
+          <div className=' text-black w-screen flex gap-5 z-99 overflow-x-scroll  no-scrollbar'>
             {['ALL', 'Programming', 'Tech', 'News', 'Song', 'Animation', "Show"].map(category => (
               <div
                 key={category}

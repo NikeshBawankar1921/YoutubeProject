@@ -11,10 +11,11 @@ import SideBar from '../components/Sidebar';
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import Profile from '../components/Profile';
 
-function VideoPage() {
 
+function VideoPage() {
+const [haschannel, setHasChannel] = useState('');
       const [isOpenProfile, setIsOpenProfile] = useState(false);
-  const toggleProfile = () =>setIsOpenProfile(!isOpenProfile)
+     
     const [isOpen, setIsOpen] = useState(false);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -26,17 +27,23 @@ function VideoPage() {
     const { id } = useParams();
     const [currentUserId, setcurrentUserId] = useState('');
 
-    
-    // const [isOpenProfile, setIsOpenProfile] = useState(false);
-    // const toggleProfile = () => setIsOpenProfile(!isOpenProfile);
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         setcurrentUserId(user?.name);
+        setHasChannel(user)
         console.log('Login state changed to:', currentUserId);
     }, []);
 
-
+ const [haschannelResult, setHasChannelResult] = useState(false);
+  const toggleProfile = () => {
+    if (haschannel?.channel !== '') {
+      setHasChannelResult(true);
+    } else {
+      setHasChannelResult(false);
+    }
+    setIsOpenProfile(!isOpenProfile);
+  };
 
 
     const toggleSidebar = () => {
@@ -188,7 +195,7 @@ function VideoPage() {
 
             <div className='flex flex-col sm:grid sm:grid-cols-3'>
                 <SideBar isOpen={isOpen} />
-              <Profile  isOpenProfile={isOpenProfile}/>
+              <Profile isOpenProfile={isOpenProfile} haschannelResult={haschannelResult} />
                 <div className='col-span-2 grid w-full h-screen mb-4 overflow-y-auto no-scrollbar'>
                     {/*video playing frame*/}
                     <div className='h-120 bg-red-20 m-2'>
@@ -294,7 +301,7 @@ function VideoPage() {
                                 const isDisliked = comment.dislikedBy?.includes(currentUserId);
 
                                 return (
-                                    <div key={comment._id} className='flex gap-4'>
+                                    <div key={comments._id} className='flex gap-4'>
                                         <img
                                             src="https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg"
                                             alt="User Avatar"
@@ -337,14 +344,14 @@ function VideoPage() {
                                                     <p className='mt-1'>{comment.text}</p>
                                                     <div className='flex items-center gap-4 mt-2 text-gray-500'>
                                                         <button
-                                                            onClick={() => handleCommentLike(comment._id)}
+                                                            
                                                             className={`flex items-center gap-1 hover:text-black ${isLiked ? 'text-blue-600' : ''}`}
                                                         >
                                                             <BiLike className='size-5' />
                                                             <span>{comment.likes || 0}</span>
                                                         </button>
                                                         <button
-                                                            onClick={() => handleCommentDislike(comment._id)}
+                                                            
                                                             className={`flex items-center gap-1 hover:text-black ${isDisliked ? 'text-blue-600' : ''}`}
                                                         >
                                                             <AiTwotoneDislike className='size-5' />
