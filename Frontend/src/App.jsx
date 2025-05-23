@@ -19,9 +19,6 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/createchannel" element={<PrivateRoute> <CreateChannel/> </PrivateRoute>  } />
       <Route path="/userchannel" element={<PrivateRoute>  <UserChannel/> </PrivateRoute>} />
-      
-
-
     </Routes>
   )
 }

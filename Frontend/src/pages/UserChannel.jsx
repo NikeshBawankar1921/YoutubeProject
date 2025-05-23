@@ -4,43 +4,16 @@ import SideBar from '../components/Sidebar';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Profile from '../components/Profile';
+import { useIsOpen } from '../utils/Contex';
 
 function UserChannel() {
-  const [isOpenProfile, setIsOpenProfile] = useState(false);
-  const [haschannel, setHasChannel] = useState('');
-  const [haschannelResult, setHasChannelResult] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const [videos, setVideos] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+ const { haschannel} = useIsOpen();
+ const [videos, setVideos] = useState([]);
 
-  const toggleProfile = () => {
-    if (haschannel?.channel !== '') {
-      setHasChannelResult(true);
-    } else {
-      setHasChannelResult(false);
-    }
-    setIsOpenProfile(!isOpenProfile);
-  };
 
-  // Update user from localStorage after delay
-  const updateUserFromStorage = () => {
-    setTimeout(() => {
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      setUser(storedUser);
-      setHasChannel(storedUser);
-      if (storedUser?.channel?.length > 0) {
-        setSelectedCategory(storedUser.channel[0].handle);
-      }
-      console.log('User updated:', storedUser);
-    }, 1000); // 1 second delay
-  };
 
   useEffect(() => {
-    updateUserFromStorage();
-
     const fetchVideos = async () => {
       try {
         const res = await axios.get('http://localhost:5000/videos');
@@ -51,16 +24,15 @@ function UserChannel() {
     };
 
     fetchVideos();
-
-    window.addEventListener('storage', updateUserFromStorage);
-    return () => window.removeEventListener('storage', updateUserFromStorage);
   }, []);
+
+
 
   return (
     <div className="fixed top-0 w-screen h-screen bg-white text-black overflow-y-auto">
-      <Header onMenuClick={toggleSidebar} onProfileClick={toggleProfile} />
-      <SideBar isOpen={isOpen} />
-      <Profile isOpenProfile={isOpenProfile} haschannelResult={haschannelResult} />
+      <Header />
+      <SideBar />
+      <Profile />
 
       <img
         className="w-full h-50"
@@ -76,10 +48,10 @@ function UserChannel() {
             alt="profile"
           />
           <div className="m-2">
-            {user?.channel?.length > 0 ? (
+            {haschannel?.channel?.length > 0 ? (
               <>
-                <div className="font-bold text-xl">{user.channel[0].channelname}</div>
-                <div>{user.channel[0].handle}</div>
+                <div className="font-bold text-xl">{haschannel.channel[0].channelname}</div>
+                <div>{haschannel.channel[0].handle}</div>
               </>
             ) : (
               <>
@@ -118,10 +90,10 @@ function UserChannel() {
           </div>
 
           <div className="flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full w-screen">
-            {selectedCategory &&
-            videos.filter((video) => video.channelId === selectedCategory).length > 0 ? (
+            {haschannel.channel[0].handle &&
+            videos.filter((video) => video.channelId === haschannel.channel[0].handle).length > 0 ? (
               videos
-                .filter((video) => video.channelId === selectedCategory)
+                .filter((video) => video.channelId === haschannel.channel[0].handle)
                 .map((video, index) => (
                   <Link
                     key={index}

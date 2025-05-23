@@ -6,9 +6,12 @@ import { GoPlus } from "react-icons/go";
 import { PiUserCircleLight, PiDotsThreeVerticalBold } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
+import { useIsOpen } from '../utils/Contex';
 
 
-function Header({ onMenuClick , onProfileClick, searchQuery, setSearchQuery ,searchFilter }) {
+function Header({searchQuery, setSearchQuery ,searchFilter }) {
+
+  const { toggleSidebar, toggleProfileSidebar } = useIsOpen(); // use context
   const nav = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userImg, setUserImg] = useState("");
@@ -37,7 +40,7 @@ function Header({ onMenuClick , onProfileClick, searchQuery, setSearchQuery ,sea
     <div className='sticky top-0 bg-white text-black w-screen flex justify-between z-99 flex-wrap-reverse'>
       {/* Left: Logo and Menu */}
       <div className='flex'>
-        <GiHamburgerMenu className='size-6 m-2 mt-3 cursor-pointer' onClick={onMenuClick} />
+        <GiHamburgerMenu className='size-6 m-2 mt-3 cursor-pointer' onClick={toggleSidebar} />
         <BsYoutube className='size-6 m-2 mt-3 text-red-600' />
         <h3 className='pt-2.5'><b>YouTube</b></h3>
       </div>
@@ -73,7 +76,7 @@ function Header({ onMenuClick , onProfileClick, searchQuery, setSearchQuery ,sea
             className='border-gray-600 rounded-2xl bg-gray-300 w-fit m-2 h-8 cursor-pointer mr-6'
             src={userImg || "https://i.pinimg.com/736x/72/82/a6/7282a6683554e837b876d9bbff9ffa94.jpg"}
             alt='User'
-            onClick={onProfileClick}
+           onClick={toggleProfileSidebar}
           />
           
          

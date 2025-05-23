@@ -9,56 +9,43 @@ import { BsFire } from "react-icons/bs";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { FiRadio } from "react-icons/fi";
 import { FaGlobe, FaGoogle } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import { BiUser } from "react-icons/bi";
+import { useIsOpen } from "../utils/Contex";
 
-function Profile({ isOpenProfile, haschannelResult }) {
+
+
+function Profile() {
+
+  
+
   let nav = useNavigate();
-  const [channeldata, setchanneldata] = useState(null);
+  const { isProfileSidebarOpen, haschannelResult, haschannel ,closeSidebars } = useIsOpen();
+
 
   function channel() {
     if (haschannelResult) {
+      closeSidebars()
       nav("/userchannel");
     } else {
       nav("/createchannel");
+      closeSidebars()
     }
   }
 
-  useEffect(() => {
-    // Delay loading the user to avoid null crash
-    const timeoutId = setTimeout(() => {
-      const userData = JSON.parse(localStorage.getItem("user"));
-      setchanneldata(userData);
-    }, 1000); // 1 second delay
-
-    const handleStorageChange = (event) => {
-      if (event.key === 'logedin') {
-        const updatedValue = JSON.parse(event.newValue);
-        console.log('Login state changed:', updatedValue);
-        // Reload user data from localStorage
-        const userData = JSON.parse(localStorage.getItem("user"));
-        setchanneldata(userData);
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
 
   function Logout() {
+    closeSidebars()
     localStorage.clear();
-    localStorage.setItem("logedin", false);
+     
     nav("/login");
   }
+
+
 
   return (
     <div
       className={`fixed right-0 rounded-2xl w-65 h-screen bg-gray-900 z-40 text-white transform transition-transform duration-300 ease-in-out  
-        ${isOpenProfile ? "translate-x-0" : "translate-x-full"}`}
+        ${isProfileSidebarOpen ? "translate-x-0" : "translate-x-full"}`}
     >
       <div className="overflow-y-auto h-full pr-2">
         <br />
@@ -67,10 +54,10 @@ function Profile({ isOpenProfile, haschannelResult }) {
             <BiUser className="m-2 size-6" />
           </div>
           <div className="col-span-2 rounded-full">
-            {channeldata?.name || "Loading..."}
+            {haschannel?.name || "Loading..."}
           </div>
           <div className="col-span-2 rounded-full">
-            {channeldata?.email || ""}
+            {haschannel?.email || ""}
           </div>
           <div className="col-span-3 p-1 text-sky-500 cursor-pointer m-1">
             <div onClick={channel}>

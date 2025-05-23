@@ -8,22 +8,20 @@ import { RiShoppingBag4Line ,RiGraduationCapLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { BsFire , BsTrophy } from "react-icons/bs";
 import { TbHanger2 } from "react-icons/tb";
-// import { GiHanger } from "react-icons/gi";
-
- 
 import { IoMusicalNotesOutline } from "react-icons/io5";
 import { FiRadio } from "react-icons/fi";
+import { useIsOpen } from "../utils/Contex";
 
 
-function SideBar({ isOpen }) {
+function SideBar() {
   let nav=useNavigate();
   
-
+  const { isSidebarOpen} = useIsOpen(); // use context
 
   return (
     <div 
       className={` fixed left-0 w-60 h-screen  bg-white z-10 text-black transform transition-transform duration-300 ease-in-out  
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
 <div className="overflow-y-auto h-full pr-2 ">
       <label className="flex cursor-pointer justify-start m-3 rounded hover:bg-gray-200 p-1" onClick={()=>{nav("/")}}>

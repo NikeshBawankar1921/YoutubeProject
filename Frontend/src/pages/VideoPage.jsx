@@ -10,13 +10,12 @@ import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import Profile from '../components/Profile';
+import { useIsOpen } from '../utils/Contex';
 
 
 function VideoPage() {
-const [haschannel, setHasChannel] = useState('');
-      const [isOpenProfile, setIsOpenProfile] = useState(false);
-     
-    const [isOpen, setIsOpen] = useState(false);
+    const {   haschannel } = useIsOpen();  
+
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [suggestedVideos, setSuggestedVideos] = useState([]);
@@ -29,26 +28,15 @@ const [haschannel, setHasChannel] = useState('');
 
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        setcurrentUserId(user?.name);
-        setHasChannel(user)
+
+        setcurrentUserId(haschannel?.name);
+        
         console.log('Login state changed to:', currentUserId);
-    }, []);
-
- const [haschannelResult, setHasChannelResult] = useState(false);
-  const toggleProfile = () => {
-    if (haschannel?.channel !== '') {
-      setHasChannelResult(true);
-    } else {
-      setHasChannelResult(false);
-    }
-    setIsOpenProfile(!isOpenProfile);
-  };
+    
+    },[]);
 
 
-    const toggleSidebar = () => {
-        setIsOpen(!isOpen);
-    };
+
 
     useEffect(() => {
         const fetchVideo = async () => {
@@ -191,11 +179,11 @@ const [haschannel, setHasChannel] = useState('');
 
     return (
         <div className='flex flex-col text-black w-screen h-full bg-white'>
-            <Header onMenuClick={toggleSidebar}  onProfileClick={toggleProfile}/> 
+            <Header /> 
 
             <div className='flex flex-col sm:grid sm:grid-cols-3'>
-                <SideBar isOpen={isOpen} />
-              <Profile isOpenProfile={isOpenProfile} haschannelResult={haschannelResult} />
+                <SideBar  />
+              <Profile />
                 <div className='col-span-2 grid w-full h-screen mb-4 overflow-y-auto no-scrollbar'>
                     {/*video playing frame*/}
                     <div className='h-120 bg-red-20 m-2'>
