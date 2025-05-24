@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const commentSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({  //schema for comments
       text: { type: String, required: true },
   userId: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
@@ -11,8 +11,8 @@ const commentSchema = new mongoose.Schema({
     
 });
 
-const videoSchema = new mongoose.Schema({
-  videoId: String,
+const videoSchema = new mongoose.Schema({  //Schema for videos
+  videoId: String, 
   title: String,
   videoUrl: String,
   thumbnailUrl: String,

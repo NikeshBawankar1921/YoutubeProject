@@ -3,11 +3,15 @@ import Video from "../models/videoModel.js";
 
 const videoRouter = express.Router();
 
-console.log("videorouter called")
+// Log to confirm the router is loaded
+console.log("videorouter called");
+
+
+// Get all videos
 
 videoRouter.get("/", async (req, res) => {
   try {
-    const videos = await Video.find();
+    const videos = await Video.find(); // Fetch all videos from DB
     res.status(200).json(videos);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -16,43 +20,40 @@ videoRouter.get("/", async (req, res) => {
 
 
 // Get a single video by ID
+
 videoRouter.get("/:id", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
     res.status(200).json(video);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Get comments for a video
+
+// Get comments of a specific video
+
 videoRouter.get("/:id/comments", async (req, res) => {
   try {
     const video = await Video.findById(req.params.id);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
     res.status(200).json(video.comments || []);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Add a comment to a video
+
+// Add a new comment to a video
+
 videoRouter.post("/:id/comments", async (req, res) => {
   try {
     const { text, userId } = req.body;
-    if (!text || !userId) {
-      return res.status(400).json({ error: "Text and userId are required" });
-    }
+    if (!text || !userId) return res.status(400).json({ error: "Text and userId are required" });
 
     const video = await Video.findById(req.params.id);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
 
     const newComment = {
       text,
@@ -73,27 +74,22 @@ videoRouter.post("/:id/comments", async (req, res) => {
   }
 });
 
+
 // Edit a comment
+
 videoRouter.put("/:videoId/comments/:commentId", async (req, res) => {
   try {
     const { videoId, commentId } = req.params;
     const { text, userId } = req.body;
 
-    if (!text || !userId) {
-      return res.status(400).json({ error: "Text and userId are required" });
-    }
+    if (!text || !userId) return res.status(400).json({ error: "Text and userId are required" });
 
     const video = await Video.findById(videoId);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
 
     const comment = video.comments.id(commentId);
-    if (!comment) {
-      return res.status(404).json({ error: "Comment not found" });
-    }
+    if (!comment) return res.status(404).json({ error: "Comment not found" });
 
-    // Check if the user is the owner of the comment
     if (comment.userId !== userId) {
       return res.status(403).json({ error: "Not authorized to edit this comment" });
     }
@@ -101,46 +97,39 @@ videoRouter.put("/:videoId/comments/:commentId", async (req, res) => {
     comment.text = text;
     comment.edited = true;
     comment.editTimestamp = new Date();
-    
+
     await video.save();
-    
+
     res.status(200).json(comment);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Like/Unlike a video
+
+// Like / Unlike a video
+
 videoRouter.post("/:id/like", async (req, res) => {
   try {
     const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "userId is required" });
-    }
+    if (!userId) return res.status(400).json({ error: "userId is required" });
 
     const video = await Video.findById(req.params.id);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
-
-    // Initialize likedBy array if it doesn't exist
-    if (!video.likedBy) {
-      video.likedBy = [];
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
 
     const userIndex = video.likedBy.indexOf(userId);
     if (userIndex === -1) {
-      // User hasn't liked the video, add like
+      // Like the video
       video.likedBy.push(userId);
       video.likes = (video.likes || 0) + 1;
-      
-      // Remove dislike if user had disliked
-      if (video.dislikedBy && video.dislikedBy.includes(userId)) {
+
+      // Remove previous dislike if present
+      if (video.dislikedBy?.includes(userId)) {
         video.dislikedBy = video.dislikedBy.filter(id => id !== userId);
         video.dislikes = Math.max(0, (video.dislikes || 0) - 1);
       }
     } else {
-      // User has already liked, remove like
+      // Unlike the video
       video.likedBy.splice(userIndex, 1);
       video.likes = Math.max(0, (video.likes || 0) - 1);
     }
@@ -152,37 +141,30 @@ videoRouter.post("/:id/like", async (req, res) => {
   }
 });
 
-// Dislike/Undislike a video
+
+// Dislike / Undislike a video
+
 videoRouter.post("/:id/dislike", async (req, res) => {
   try {
     const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "userId is required" });
-    }
+    if (!userId) return res.status(400).json({ error: "userId is required" });
 
     const video = await Video.findById(req.params.id);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
-
-    // Initialize dislikedBy array if it doesn't exist
-    if (!video.dislikedBy) {
-      video.dislikedBy = [];
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
 
     const userIndex = video.dislikedBy.indexOf(userId);
     if (userIndex === -1) {
-      // User hasn't disliked the video, add dislike
+      // Dislike the video
       video.dislikedBy.push(userId);
       video.dislikes = (video.dislikes || 0) + 1;
-      
-      // Remove like if user had liked
-      if (video.likedBy && video.likedBy.includes(userId)) {
+
+      // Remove like if previously liked
+      if (video.likedBy?.includes(userId)) {
         video.likedBy = video.likedBy.filter(id => id !== userId);
         video.likes = Math.max(0, (video.likes || 0) - 1);
       }
     } else {
-      // User has already disliked, remove dislike
+      // Undo dislike
       video.dislikedBy.splice(userIndex, 1);
       video.dislikes = Math.max(0, (video.dislikes || 0) - 1);
     }
@@ -194,41 +176,33 @@ videoRouter.post("/:id/dislike", async (req, res) => {
   }
 });
 
-// Like/Unlike a comment
+
+// Like / Unlike a comment not working for not.. not tested
+
 videoRouter.post("/:videoId/comments/:commentId/like", async (req, res) => {
   try {
     const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "userId is required" });
-    }
+    if (!userId) return res.status(400).json({ error: "userId is required" });
 
     const video = await Video.findById(req.params.videoId);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
 
     const comment = video.comments.id(req.params.commentId);
-    if (!comment) {
-      return res.status(404).json({ error: "Comment not found" });
-    }
-
-    // Initialize arrays if they don't exist
-    if (!comment.likedBy) comment.likedBy = [];
-    if (!comment.dislikedBy) comment.dislikedBy = [];
+    if (!comment) return res.status(404).json({ error: "Comment not found" });
 
     const userIndex = comment.likedBy.indexOf(userId);
     if (userIndex === -1) {
-      // User hasn't liked the comment, add like
+      // Like the comment
       comment.likedBy.push(userId);
       comment.likes = (comment.likes || 0) + 1;
-      
-      // Remove dislike if user had disliked
+
+      // Remove previous dislike
       if (comment.dislikedBy.includes(userId)) {
         comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
         comment.dislikes = Math.max(0, (comment.dislikes || 0) - 1);
       }
     } else {
-      // User has already liked, remove like
+      // Unlike the comment
       comment.likedBy.splice(userIndex, 1);
       comment.likes = Math.max(0, (comment.likes || 0) - 1);
     }
@@ -240,41 +214,33 @@ videoRouter.post("/:videoId/comments/:commentId/like", async (req, res) => {
   }
 });
 
-// Dislike/Undislike a comment
+
+// Dislike / Undislike a comment
+
 videoRouter.post("/:videoId/comments/:commentId/dislike", async (req, res) => {
   try {
     const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "userId is required" });
-    }
+    if (!userId) return res.status(400).json({ error: "userId is required" });
 
     const video = await Video.findById(req.params.videoId);
-    if (!video) {
-      return res.status(404).json({ error: "Video not found" });
-    }
+    if (!video) return res.status(404).json({ error: "Video not found" });
 
     const comment = video.comments.id(req.params.commentId);
-    if (!comment) {
-      return res.status(404).json({ error: "Comment not found" });
-    }
-
-    // Initialize arrays if they don't exist
-    if (!comment.likedBy) comment.likedBy = [];
-    if (!comment.dislikedBy) comment.dislikedBy = [];
+    if (!comment) return res.status(404).json({ error: "Comment not found" });
 
     const userIndex = comment.dislikedBy.indexOf(userId);
     if (userIndex === -1) {
-      // User hasn't disliked the comment, add dislike
+      // Dislike the comment
       comment.dislikedBy.push(userId);
       comment.dislikes = (comment.dislikes || 0) + 1;
-      
-      // Remove like if user had liked
+
+      // Remove like if previously liked
       if (comment.likedBy.includes(userId)) {
         comment.likedBy = comment.likedBy.filter(id => id !== userId);
         comment.likes = Math.max(0, (comment.likes || 0) - 1);
       }
     } else {
-      // User has already disliked, remove dislike
+      // Undo dislike
       comment.dislikedBy.splice(userIndex, 1);
       comment.dislikes = Math.max(0, (comment.dislikes || 0) - 1);
     }
@@ -285,6 +251,5 @@ videoRouter.post("/:videoId/comments/:commentId/dislike", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 export default videoRouter;

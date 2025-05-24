@@ -3,12 +3,13 @@ import user from "../models/UserDataModel.js";
 
 const channelRoutes = express.Router();
 
+//post request to create channnel
 channelRoutes.post("/", async (req, res) => {
   const { channelname, handle, email } = req.body;
 
   try {
     // Find the user by email
-    const userdata = await user.findOne({ email });
+    const userdata = await user.findOne({ email }); //checking if email is present in the data base
     if (!userdata) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -29,7 +30,7 @@ channelRoutes.post("/", async (req, res) => {
       userdata.channel.push(newChannel);
       await userdata.save();
     }
-  return res.status(200).json({
+  return res.status(200).json({   // sending response with data
 
       user: {id: userdata._id,
       email: email,

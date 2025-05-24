@@ -12,29 +12,37 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import Profile from '../components/Profile';
 import { useIsOpen } from '../utils/Contex';
 
-
 function VideoPage() {
-    const {   haschannel } = useIsOpen();  
+    // Get user/channel info from context
+    const { haschannel } = useIsOpen();
 
+    // State to store video data
     const [video, setVideo] = useState(null);
+    // Loading state for video fetch
     const [loading, setLoading] = useState(true);
+    // Suggested videos to display on sidebar
     const [suggestedVideos, setSuggestedVideos] = useState([]);
+    // List of comments for the video
     const [comments, setComments] = useState([]);
+    // Controlled input for new comment text
     const [newComment, setNewComment] = useState('');
+    // To track which comment is currently being edited (by id)
     const [editingComment, setEditingComment] = useState(null);
+    // Controlled input for editing comment text
     const [editText, setEditText] = useState('');
+    // Get video id from URL params
     const { id } = useParams();
+    // Store current user/channel id for liking/commenting
     const [currentUserId, setcurrentUserId] = useState('');
 
-
+    // Update currentUserId whenever haschannel changes
     useEffect(() => {
       setcurrentUserId(haschannel?.name);  
-    },[haschannel]);
+    }, [haschannel]);
 
-
-
-
+    // Fetch video details, suggested videos, and comments when `id` changes or a comment is edited
     useEffect(() => {
+        // Fetch video data from backend
         const fetchVideo = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/videos/${id}`);
@@ -46,19 +54,21 @@ function VideoPage() {
             }
         };
 
+        // Fetch suggested videos excluding the current one
         const fetchSuggestedVideos = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/videos');
                 const filteredVideos = response.data
-                    .filter(v => v._id !== id)
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, 5);
+                    .filter(v => v._id !== id) // exclude current video
+                    .sort(() => 0.5 - Math.random()) // shuffle randomly
+                    .slice(0, 5); // take 5 suggestions
                 setSuggestedVideos(filteredVideos);
             } catch (error) {
                 console.error("Error fetching suggested videos:", error);
             }
         };
 
+        // Fetch comments for this video
         const fetchComments = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/videos/${id}/comments`);
@@ -71,47 +81,57 @@ function VideoPage() {
         fetchVideo();
         fetchSuggestedVideos();
         fetchComments();
-    }, [id,editingComment]);
+    }, [id, editingComment]);
 
+    // Handle adding a new comment
     const handleAddComment = async (e) => {
         e.preventDefault();
+        // Prevent empty comments
         if (!newComment.trim()) return;
 
         try {
+            // Post new comment to backend
             const response = await axios.post(`http://localhost:5000/videos/${id}/comments`, {
                 text: newComment,
                 userId: currentUserId,
             });
+            // Update comments list with the newly added comment
             setComments([...comments, response.data]);
-            setNewComment('');
+            setNewComment(''); // clear input
         } catch (error) {
             console.error("Error adding comment:", error);
         }
     };
 
+    // Handle editing an existing comment
     const handleEditComment = async (commentId) => {
         try {
+            // Send updated comment to backend
             const response = await axios.put(`http://localhost:5000/videos/${id}/comments/${commentId}`, {
                 text: editText,
                 userId: currentUserId,
             });
 
+            // Update comments list with edited comment data
             setComments(comments.map(comment =>
                 comment._id === commentId ? response.data : comment
             ));
-            setEditingComment(null);
-            setEditText('');
+            setEditingComment(null); // exit edit mode
+            setEditText(''); // clear edit input
 
         } catch (error) {
             console.error("Error editing comment:", error);
         }
     };
 
+    // Handle liking the video
     const handleVideoLike = async () => {
         try {
+            // Send like request to backend
             const response = await axios.post(`http://localhost:5000/videos/${id}/like`, {
                 userId: currentUserId
             });
+            // Update likes and dislikes count in UI
             setVideo(prev => ({
                 ...prev,
                 likes: response.data.likes,
@@ -122,11 +142,14 @@ function VideoPage() {
         }
     };
 
+    // Handle disliking the video
     const handleVideoDislike = async () => {
         try {
+            // Send dislike request to backend
             const response = await axios.post(`http://localhost:5000/videos/${id}/dislike`, {
                 userId: currentUserId
             });
+            // Update likes and dislikes count in UI
             setVideo(prev => ({
                 ...prev,
                 likes: response.data.likes,
@@ -137,29 +160,31 @@ function VideoPage() {
         }
     };
 
-
-
+    // Start editing a comment: set editing state and fill input with comment text
     const startEditing = (comment) => {
         setEditingComment(comment._id);
         setEditText(comment.text);
     };
 
+    // Cancel editing a comment: reset editing states
     const cancelEditing = () => {
         setEditingComment(null);
         setEditText('');
     };
 
+    // Show loading message while data is being fetched
     if (loading) {
         return <div className="flex justify-center items-center h-screen">Loading...</div>;
     }
 
+    // Show error if video not found
     if (!video) {
         return <div className="flex justify-center items-center h-screen">Video not found</div>;
     }
 
+    // Check if current user has liked or disliked the video
     const isVideoLiked = video.likedBy?.includes(currentUserId);
     const isVideoDisliked = video.dislikedBy?.includes(currentUserId);
-
 
 
 
