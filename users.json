@@ -1,0 +1,223 @@
+[
+  {
+  "_id": {
+    "$oid": "682e654711a893d4ab04c5db"
+  },
+  "username": "nikesh",
+  "email": "learnwithfun@gmail.com",
+  "password": "$2b$10$T07qDNOV4PuXKMJpDBdAIeCJJMo122ijngy/7Q65g7wXpgN.xKPNm",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "learnwithfun",
+      "handle": "@learnwithfun_8944",
+      "_id": {
+        "$oid": "682e680111a893d4ab04c7ba"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6830fd9bf3ae13d679944f4c"
+  },
+  "username": "asdasd",
+  "email": "asdasd@dsfsd.com",
+  "password": "$2b$10$DkwZiPkCD2i/K99HqYzxR.HLEA1X6Z9DkYwJ72sGfCD3e3LuEgjOm",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "sadasd",
+      "handle": "@sadasd_6009",
+      "_id": {
+        "$oid": "6830fda5f3ae13d679944fe6"
+      }
+    }
+  ],
+  "__v": 1
+}
+,
+{
+  "_id": {
+    "$oid": "682e658111a893d4ab04c5de"
+  },
+  "username": "sanket",
+  "email": "alextech@gmail.com",
+  "password": "$2b$10$piE3HS9nGo2wQw.Zc.kuO.egQOCJm4IsBBIt/1ZIyG16ucF9d/9S2",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "AlexTech",
+      "handle": "@AlexTech_7545",
+      "_id": {
+        "$oid": "682e685311a893d4ab04c8a3"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "682e65ac11a893d4ab04c5e1"
+  },
+  "username": "newschannel",
+  "email": "kaltaknews@gmail.com",
+  "password": "$2b$10$bvu8gZJOvDtPxOIGOJoZ7.c/vLBtPXynl9.ELOvs.MswbMWo6TD1a",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "KaltakNews",
+      "handle": "@KaltakNews_3764",
+      "_id": {
+        "$oid": "682e691d11a893d4ab04cae5"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "682e65dd11a893d4ab04c5e4"
+  },
+  "username": "bhavesh",
+  "email": "songforyou@gmail.com",
+  "password": "$2b$10$DKk5Wp74722ySbnQyP1oSOCl6iKVB5w4a7HyTExn/Y8o.aoIpjCiW",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "SongforYou",
+      "handle": "@SongforYou_6347",
+      "_id": {
+        "$oid": "682e698011a893d4ab04cbcd"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "682e660911a893d4ab04c5e7"
+  },
+  "username": "caroon",
+  "email": "kidsanimator@gmail.com",
+  "password": "$2b$10$Gguj.eWynkJvnp36md5cGu2LdVMOfZDF4OHGFuy5VDp5KW18.zBdG",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "LearnAnimation",
+      "handle": "@LearnAnimation_6166",
+      "_id": {
+        "$oid": "682e6a5611a893d4ab04cd2c"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "682e663211a893d4ab04c5ea"
+  },
+  "username": "mantra",
+  "email": "mantrashow@gmail.com",
+  "password": "$2b$10$EI2cW0iBiIeAPS86.RIDy.92yCHADa2EwY/xAUHA9RqeYMCI3TEpC",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "MantraShow",
+      "handle": "@MantraShow_5022",
+      "_id": {
+        "$oid": "682e675e11a893d4ab04c660"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "682f3a4cdf12b59174f022af"
+  },
+  "username": "anjali bawankar",
+  "email": "anjali@bawankar.com",
+  "password": "$2b$10$IjLaGZuceLksDgXwy8x03.nrlbFvZiW4nl1B1ZP4kmhos6oZrQlre",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "ANjusCraft",
+      "handle": "@ANjusCraft_5597",
+      "_id": {
+        "$oid": "682f3a7ddf12b59174f0232f"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6830f707f3ae13d6799436a5"
+  },
+  "username": "newUser",
+  "email": "user1@gmail.com",
+  "password": "$2b$10$doH5BrJoJ2wdGWBw72U5tuKh5uCx/s7a0eSo/YW1jYev4zVqxWX4e",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "GamingChannelByUser",
+      "handle": "@GamingChannelByUser_1680",
+      "_id": {
+        "$oid": "6830f7d3f3ae13d6799439ef"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6830f917f3ae13d679944289"
+  },
+  "username": "newUser",
+  "email": "userUser@gmail.com",
+  "password": "$2b$10$0HNVA9gFKMrelcXABupCyO2TyYvNu4ePrfdoGpnhIS1OOssMAzN3a",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "NewUserChannel",
+      "handle": "@NewUserChannel_2969",
+      "_id": {
+        "$oid": "6830f9d3f3ae13d67994452d"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6830fa66f3ae13d679944bc0"
+  },
+  "username": "jiji",
+  "email": "jiji@ex.com",
+  "password": "$2b$10$4QwhcfTHDQ1ktlsEmE9JeujZUbb2ZX6.QWDMNyeMLvkUlg1libYly",
+  "userId": "",
+  "avatar": "",
+  "channel": [
+    {
+      "channelname": "asdasd",
+      "handle": "@asdasd_4523",
+      "_id": {
+        "$oid": "6830fa8ff3ae13d679944c5b"
+      }
+    }
+  ],
+  "__v": 1
+}
+]

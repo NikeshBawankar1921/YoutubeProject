@@ -29,7 +29,7 @@ function VideoPage() {
 
     useEffect(() => {
       setcurrentUserId(haschannel?.name);  
-    },[]);
+    },[haschannel]);
 
 
 

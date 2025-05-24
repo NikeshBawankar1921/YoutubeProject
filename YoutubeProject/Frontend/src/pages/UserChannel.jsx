@@ -8,18 +8,31 @@ import { useIsOpen } from '../utils/Contex';
 
 function UserChannel() {
 
+const { haschannel} = useIsOpen();
+const [channeName,setChannelName]=useState();
+const [channeHandle,setChannelHandle]=useState();
 
-    const { haschannel } = useIsOpen();
+
+useEffect(() => {
+  if (!haschannel || !haschannel.channel) return;
+
+  if (haschannel.channel.channelname !== undefined) {
+    setChannelName(haschannel.channel.channelname);
+    setChannelHandle(haschannel.channel.handle);
+  } else if (Array.isArray(haschannel.channel) && haschannel.channel.length > 0) {
+    setChannelName(haschannel.channel[0].channelname);
+    setChannelHandle(haschannel.channel[0].handle);
+  }
+}, [haschannel]);
+
+    
   
-console.log("sachannel data:",haschannel.channel.handle)
+console.log("sachannel data:",haschannel.channel.channelname)
 
   const [videos, setVideos] = useState([]);
 
 
   
-
-
-
 
  
 
@@ -61,15 +74,15 @@ console.log("sachannel data:",haschannel.channel.handle)
             alt="profile"
           />
           <div className="m-2">
-            {haschannel.channel ? (
+            { haschannel?(
               <>
-                <div className="font-bold text-xl">{haschannel.channel.channelname}</div>
-                <div>{haschannel.channel.handle}</div>
+                <div className="font-bold text-xl">{channeName}</div>
+                <div>{channeHandle}</div>
               </>
             ) : (
               <>
-                <div className="font-bold text-xl">loading...</div>
-                <div>---</div>
+                <div className="font-bold text-xl">{"Loding..."}</div>
+                <div>Loding...</div>
               </>
             )}
             <div>11.25k Subscribers</div>
@@ -103,10 +116,10 @@ console.log("sachannel data:",haschannel.channel.handle)
           </div>
 
           <div className="flex flex-wrap justify-evenly sm:justify-start sm:p-12 bg-white h-full w-screen">
-            {haschannel?.channel?.handle &&
-            videos.filter((video) => video.channelId === haschannel?.channel?.handle).length > 0 ? (
+            {
+          videos.filter((video) => video.channelId === (channeHandle)).length > 0 ? (
               videos
-                .filter((video) => video.channelId === haschannel?.channel?.handle)
+                .filter((video) => video.channelId === (channeHandle ))
                 .map((video, index) => (
                   <Link
                     key={index}
